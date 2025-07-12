@@ -10,9 +10,7 @@ React project base with TS, eslint, prettier, accessibility checker + git hook. 
 
 ## 🖥️ Tech
 
-1. Gatsby.js `v5.5` (react, TS, GraphQL)
-2. Tailwind CSS `v3.3` (fast styling with utility-first CSS framework)
-3. highlight.js `v11.9` (code content syntax highlighting)
+1. Gatsby.js `v5.5`
 
 ## 🚀 How to run
 
@@ -22,5 +20,4 @@ React project base with TS, eslint, prettier, accessibility checker + git hook. 
 
 ## 📝 Notes
 
-- Any issues, questions or suggestions, let me know via github
-- Plans for future development, but could be a while...
+- if accessibility is relevant to project: Use [eslint-plugin-jsx-a11y](https://www.npmjs.com/package/eslint-plugin-jsx-a11y), good with [@axe-core/react](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/react).
