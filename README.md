@@ -1,23 +1,22 @@
 # Vite React TypeScript production project base
 
-React project base with TS, eslint, prettier, accessibility checker + git hook. Update quarterly.
+React project base with TypeScript, Tailwind CSS, eslint, prettier, pre-commit git hook. Updated quarterly.
 
-## 🏁 Features/objectives
-
-1. Point one
-2. Point two
-3. Point three
+Quickstart projects.
 
 ## 🖥️ Tech
 
-1. Gatsby.js `v5.5`
-
-## 🚀 How to run
-
-1. Fork &amp; clone this repo
-2. Make sure you have Node `v18`, in terminal go to DIR &amp; run `yarn`
-3. On successful installation, run `yarn develop`
+1. eslint: `^9.30.1`
+1. husky: `^9.1.7`
+1. lint-staged: `^16.1.2`
+1. prettier: `^3.6.2`
+1. react: `^19.1.0`
+1. react-dom: `^19.1.0`
+1. tailwindcss: `^4.1.11`
+1. typescript: `~5.8.3`
+1. vite: `^7.0.4`
 
 ## 📝 Notes
 
+- update to latest packges every quarter
 - if accessibility is relevant to project: Use [eslint-plugin-jsx-a11y](https://www.npmjs.com/package/eslint-plugin-jsx-a11y), good with [@axe-core/react](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/react).
