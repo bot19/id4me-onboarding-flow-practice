@@ -5,6 +5,7 @@ import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 import reactX from 'eslint-plugin-react-x'
 import reactDom from 'eslint-plugin-react-dom'
+import prettier from 'eslint-config-prettier'
 
 export default tseslint.config([
   globalIgnores(['dist']),
@@ -19,6 +20,8 @@ export default tseslint.config([
       reactX.configs['recommended-typescript'],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
+      // Disable ESLint rules that conflict with Prettier
+      prettier,
     ],
     languageOptions: {
       ecmaVersion: 2020,
