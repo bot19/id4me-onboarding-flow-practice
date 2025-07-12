@@ -14,7 +14,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": "eslint"
+    "*.{js,jsx,ts,tsx}": "eslint"
   },
   "dependencies": {
     "react": "^19.1.0",
