@@ -18,5 +18,4 @@ Quickstart projects.
 
 ## 📝 Notes
 
-- update to latest packges every quarter
-- if accessibility is relevant to project: Use [eslint-plugin-jsx-a11y](https://www.npmjs.com/package/eslint-plugin-jsx-a11y), good with [@axe-core/react](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/react).
+- [OTP prefill for web](https://medium.com/@opensrc0/advance-js-otp-autofill-in-web-b20451265b5a)
