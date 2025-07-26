@@ -29,3 +29,11 @@ export const step3Schema = z.object({
       'Password must contain at least one special character'
     ),
 });
+
+export const CombinedOnboardSchema = z.object({
+  ...step1Schema.shape,
+  ...step2Schema.shape,
+  ...step3Schema.shape,
+});
+
+export type CombinedOnboardType = z.infer<typeof CombinedOnboardSchema>;
