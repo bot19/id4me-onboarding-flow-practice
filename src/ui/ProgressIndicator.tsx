@@ -2,12 +2,30 @@ import { CheckIcon } from '@heroicons/react/20/solid';
 import { classNames } from '../utils';
 
 const steps = [
-  { name: 'Step 1', status: 'complete' },
-  { name: 'Step 2', status: 'current' },
-  { name: 'Step 3', status: 'upcoming' },
+  { id: 1, name: 'Step 1', status: 'upcoming' },
+  { id: 2, name: 'Step 2', status: 'upcoming' },
+  { id: 3, name: 'Step 3', status: 'upcoming' },
 ];
 
-export const ProgressIndicator = () => {
+const getStepStatus = (currentStep: number) => {
+  return [...steps].map(step => {
+    if (step.id < currentStep) {
+      return { ...step, status: 'complete' };
+    }
+    if (step.id === currentStep) {
+      return { ...step, status: 'current' };
+    }
+    return { ...step, status: 'upcoming' };
+  });
+};
+
+interface ProgressIndicatorProps {
+  step: number;
+}
+
+export const ProgressIndicator = (props: ProgressIndicatorProps) => {
+  const steps = getStepStatus(props.step);
+
   return (
     <nav aria-label="Progress">
       <ol className="flex items-center">
