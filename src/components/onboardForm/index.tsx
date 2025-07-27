@@ -1,3 +1,9 @@
+import { ProgressIndicator } from '../../ui';
+
 export const OnboardForm = () => {
-  return <div>Your form content</div>;
+  return (
+    <div>
+      <ProgressIndicator />
+    </div>
+  );
 };
