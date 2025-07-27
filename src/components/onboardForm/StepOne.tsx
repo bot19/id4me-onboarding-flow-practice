@@ -1,5 +1,7 @@
 import { DevicePhoneMobileIcon } from '@heroicons/react/16/solid';
 
+// TODO: fix input-button thin border (right)
+// TODO: fix link focus outline weirdness
 export const StepOne = () => {
   return (
     <form action="#" method="POST" className="space-y-6">
@@ -22,7 +24,7 @@ export const StepOne = () => {
           />
           <button
             type="button"
-            className="flex shrink-0 items-center gap-x-1.5 rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+            className="flex shrink-0 items-center gap-x-1.5 rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-primary cursor-pointer"
           >
             <DevicePhoneMobileIcon
               aria-hidden="true"
@@ -66,7 +68,7 @@ export const StepOne = () => {
       <div>
         <button
           type="submit"
-          className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary cursor-pointer"
         >
           Verify
         </button>
