@@ -5,8 +5,9 @@
   --color-primary: #733ca4; /* dark purple */
   --color-secondary: #000000; /* black, text */
   --color-accent: #22f0c0; /* light green, CTA */
-  /* using gray-300 for darker gray */
   --color-gray-light: #efefef; /* bg gray */
+  /* using gray-300 for darker gray */
+  /* using gray-400 for darker gray */
   --color-light: #ffffff; /* bg white */
 }
 
