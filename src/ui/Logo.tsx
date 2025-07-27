@@ -1,7 +1,7 @@
 // TODO: Replace with actual logo
 export const Logo = () => {
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="xs:mx-auto xs:w-full xs:max-w-md">
       <img
         alt="Your Company"
         src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"

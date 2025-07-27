@@ -33,7 +33,7 @@ export const ProgressIndicator = (props: ProgressIndicatorProps) => {
           <li
             key={step.name}
             className={classNames(
-              stepIdx !== steps.length - 1 ? 'pr-8 sm:pr-20' : '',
+              stepIdx !== steps.length - 1 ? 'pr-8 xs:pr-20' : '',
               'relative'
             )}
           >

@@ -2,6 +2,8 @@
 
 /* Color Theme using CSS 4 @theme directive */
 @theme {
+  --breakpoint-xs: 32rem;
+
   --color-primary: #733ca4; /* dark purple */
   --color-secondary: #000000; /* black, text */
   --color-accent: #22f0c0; /* light green, CTA */

@@ -3,12 +3,12 @@ import { StepOne } from './StepOne';
 import { StepTwo } from './StepTwo';
 import { StepThree } from './StepThree';
 
-const step = 2;
+const step = 3;
 
 export const OnboardForm = () => {
   return (
-    <div className="mt-10 mb-16 min-w-[320px] sm:mx-auto sm:w-full sm:max-w-[480px]">
-      <main className="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
+    <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
+      <main className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
         <h2 className="mb-4 text-center text-2xl/9 font-bold tracking-tight text-secondary">
           Sign in to your account
         </h2>
