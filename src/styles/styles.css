@@ -3,12 +3,11 @@
 /* Color Theme using CSS 4 @theme directive */
 @theme {
   --color-primary: #733ca4; /* dark purple */
-  --color-secondary: #000000; /* black */
-  --color-accent: #22f0c0; /* light green */
-  --color-bg-grey: #efefef;
-  --color-bg-light: #ffffff;
-  /* --color-text: #111827;
-  --color-text-muted: #6b7280; */
+  --color-secondary: #000000; /* black, text */
+  --color-accent: #22f0c0; /* light green, CTA */
+  /* using gray-300 for darker gray */
+  --color-gray-light: #efefef; /* bg gray */
+  --color-light: #ffffff; /* bg white */
 }
 
 /* Base styles */
@@ -18,8 +17,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: var(--color-text);
-  background-color: var(--color-bg-light);
+  color: var(--color-secondary);
+  background-color: var(--color-light);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,10 +28,5 @@
 
 body {
   margin: 0;
-  /* display: flex;
-  place-items: center; */
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--color-bg-light);
-  color: var(--color-text);
+  background-color: var(--color-gray-light);
 }
