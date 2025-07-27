@@ -7,7 +7,7 @@ const step = 2;
 
 export const OnboardForm = () => {
   return (
-    <div className="mt-10 mb-16 sm:mx-auto sm:w-full sm:max-w-[480px]">
+    <div className="mt-10 mb-16 min-w-[320px] sm:mx-auto sm:w-full sm:max-w-[480px]">
       <main className="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
         <h2 className="mb-4 text-center text-2xl/9 font-bold tracking-tight text-secondary">
           Sign in to your account
