@@ -2,6 +2,7 @@
 
 /* Color Theme using CSS 4 @theme directive */
 @theme {
+  /* TODO: should be pixel-based */
   --breakpoint-xs: 32rem;
 
   --color-primary: #733ca4; /* dark purple */
