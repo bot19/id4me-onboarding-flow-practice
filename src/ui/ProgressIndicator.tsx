@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
-import { classNames } from '../utils';
+import { cn } from '../utils';
 
 const steps = [
   { id: 1, name: 'Step 1', status: 'upcoming' },
@@ -32,7 +32,7 @@ export const ProgressIndicator = (props: ProgressIndicatorProps) => {
         {steps.map((step, stepIdx) => (
           <li
             key={step.name}
-            className={classNames(
+            className={cn(
               stepIdx !== steps.length - 1 ? 'pr-8 xs:pr-20' : '',
               'relative'
             )}
