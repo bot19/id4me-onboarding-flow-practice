@@ -8,7 +8,7 @@ function App() {
   const [step] = useState(1);
 
   return (
-    <main className="flex min-h-full flex-col justify-center pt-12">
+    <main className="flex min-h-full flex-col pt-12">
       <Logo />
       {step === 1 && <StepOneAuth />}
       {step > 1 && <OnboardForm step={step} />}
