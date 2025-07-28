@@ -28,9 +28,9 @@
  *   'primary-class': variant === 'primary'
  * })
  */
-export function classNames(
+export const classNames = (
   ...classes: (string | undefined | null | false | Record<string, boolean>)[]
-): string {
+): string => {
   return classes
     .map(cls => {
       if (typeof cls === 'object' && cls !== null) {
@@ -48,4 +48,4 @@ export function classNames(
     })
     .filter(Boolean)
     .join(' ');
-}
+};
