@@ -23,7 +23,11 @@ const RESEND_CODE_WAIT_TIME = 15000;
 
 // TODO: fix input-button thin border (right)
 // TODO: what to do when going back to this step?
-export const StepOneAuth = () => {
+interface StepOneAuthProps {
+  onSuccess: () => void;
+}
+
+export const StepOneAuth = ({ onSuccess }: StepOneAuthProps) => {
   const [authFormState, setAuthFormState] =
     useState<AuthFormState>('mobile-invalid');
 
@@ -52,10 +56,7 @@ export const StepOneAuth = () => {
             onSuccess={() => setAuthFormState('otp-sent')}
           />
 
-          <OtpForm
-            authFormState={authFormState}
-            onSuccess={() => setAuthFormState('otp-sent')}
-          />
+          <OtpForm authFormState={authFormState} onSuccess={onSuccess} />
         </div>
       </div>
     </div>
@@ -90,7 +91,8 @@ const OtpForm = (props: OtpFormProps) => {
       }
 
       props.onSuccess();
-    } catch {
+    } catch (error) {
+      console.error('OtpForm API error', error); // TODO: remove
       setError('otp', {
         type: 'server',
         message: 'Network error. Please try again.',

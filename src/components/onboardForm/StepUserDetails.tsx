@@ -1,11 +1,14 @@
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { ProgressIndicator } from '../../ui';
+import { useOnboarding } from '../../hooks/useOnboarding';
 
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const years = Array.from({ length: 100 }, (_, i) => 2025 - i);
 
 export const StepUserDetails = () => {
+  const { currentStep, prevStep, nextStep } = useOnboarding();
+
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
       <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
@@ -14,7 +17,7 @@ export const StepUserDetails = () => {
         </h2>
 
         <div className="mb-8 flex justify-center">
-          <ProgressIndicator step={2} />
+          <ProgressIndicator step={currentStep} />
         </div>
 
         <div className="space-y-6">
@@ -180,6 +183,7 @@ export const StepUserDetails = () => {
           <div className="grid grid-cols-4 gap-4">
             <button
               type="button"
+              onClick={prevStep}
               className="flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary cursor-pointer"
             >
               Back
@@ -188,6 +192,7 @@ export const StepUserDetails = () => {
             <div className="col-span-3">
               <button
                 type="submit"
+                onClick={nextStep}
                 className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary cursor-pointer"
               >
                 Next
