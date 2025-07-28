@@ -1,44 +1,19 @@
-import { ProgressIndicator } from '../../ui';
-import { StepOne } from './StepOne';
 import { StepTwo } from './StepTwo';
 import { StepThree } from './StepThree';
 import { Success } from './Success';
-import { useState } from 'react';
 
-export const OnboardForm = () => {
-  const [step] = useState(1);
+interface OnboardFormProps {
+  step: number;
+}
 
+export const OnboardForm = (props: OnboardFormProps) => {
   return (
-    <main className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
-      <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
-        <h2 className="mb-4 text-center text-2xl/9 font-bold tracking-tight text-secondary">
-          Sign in to your account
-        </h2>
-
-        {step !== 4 && (
-          <div className="mb-8 flex justify-center">
-            <ProgressIndicator step={step} />
-          </div>
-        )}
-
-        <form action="#" method="POST" className="space-y-6">
-          {step === 1 && <StepOne />}
-          {step === 2 && <StepTwo />}
-          {step === 3 && <StepThree />}
-        </form>
-        {step === 4 && <Success />}
-      </div>
-    </main>
+    <>
+      <form action="#" method="POST">
+        {props.step === 2 && <StepTwo />}
+        {props.step === 3 && <StepThree />}
+      </form>
+      {props.step === 4 && <Success />}
+    </>
   );
 };
-
-{
-  /* <div>
-<button
-  type="button"
-  className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
->
-  Contact sales
-</button>
-</div> */
-}
