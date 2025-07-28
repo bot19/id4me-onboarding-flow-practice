@@ -16,6 +16,8 @@ import {
 } from '../../services/api';
 
 import { useEffect, useState } from 'react';
+import { useOnboarding } from '../../hooks/useOnboarding';
+import type { IMobileAuth } from '../../types';
 
 type AuthFormState = 'mobile-invalid' | 'otp-sent' | 'otp-retry';
 
@@ -23,11 +25,7 @@ const RESEND_CODE_WAIT_TIME = 15000;
 
 // TODO: fix input-button thin border (right)
 // TODO: what to do when going back to this step?
-interface StepOneAuthProps {
-  onSuccess: () => void;
-}
-
-export const StepOneAuth = ({ onSuccess }: StepOneAuthProps) => {
+export const StepOneAuth = () => {
   const [authFormState, setAuthFormState] =
     useState<AuthFormState>('mobile-invalid');
 
@@ -56,68 +54,10 @@ export const StepOneAuth = ({ onSuccess }: StepOneAuthProps) => {
             onSuccess={() => setAuthFormState('otp-sent')}
           />
 
-          <OtpForm authFormState={authFormState} onSuccess={onSuccess} />
+          <OtpForm authFormState={authFormState} />
         </div>
       </div>
     </div>
-  );
-};
-
-interface OtpFormProps {
-  authFormState: AuthFormState;
-  onSuccess: () => void;
-}
-
-const OtpForm = (props: OtpFormProps) => {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<MobileOtpType>({
-    resolver: zodResolver(MobileOtpSchema),
-  });
-
-  const onSubmit: SubmitHandler<MobileOtpType> = async data => {
-    try {
-      const response = await api.post(API_URL_VALIDATE_OTP, data);
-
-      if (!response.success) {
-        setError('otp', {
-          type: 'server',
-          message: response.error,
-        });
-        return;
-      }
-
-      props.onSuccess();
-    } catch (error) {
-      console.error('OtpForm API error', error); // TODO: remove
-      setError('otp', {
-        type: 'server',
-        message: 'Network error. Please try again.',
-      });
-    }
-  };
-
-  return (
-    <form onSubmit={e => void handleSubmit(onSubmit)(e)} className="space-y-6">
-      <InputBasic
-        autoComplete="one-time-code"
-        label="OTP code"
-        placeholder="Enter OTP code"
-        type="number"
-        disabled={props.authFormState === 'mobile-invalid'}
-        error={errors.otp}
-        {...register('otp')}
-      />
-
-      <Button
-        type="submit"
-        text={isSubmitting ? 'Loading...' : 'Verify'}
-        disabled={isSubmitting || props.authFormState === 'mobile-invalid'}
-      />
-    </form>
   );
 };
 
@@ -137,8 +77,9 @@ const MobileNumberForm = (props: MobileNumberFormProps) => {
   });
 
   const onSubmit: SubmitHandler<MobileNumberType> = async data => {
+    console.log('MobileNumberForm onSubmit', data);
     try {
-      const response = await api.post(API_URL_SEND_OTP, data);
+      const response = await api.post(API_URL_SEND_OTP, JSON.stringify(data));
 
       if (!response.success) {
         setError('mobile', {
@@ -179,6 +120,81 @@ const MobileNumberForm = (props: MobileNumberFormProps) => {
               : 'Get code'
         }
         disabled={isSubmitting || props.authFormState === 'otp-sent'}
+      />
+    </form>
+  );
+};
+
+interface OtpFormProps {
+  authFormState: AuthFormState;
+}
+
+const OtpForm = (props: OtpFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<MobileOtpType>({
+    resolver: zodResolver(MobileOtpSchema),
+  });
+
+  const { nextStep } = useOnboarding();
+
+  const onSubmit: SubmitHandler<MobileOtpType> = async data => {
+    try {
+      const response = await api.post(
+        API_URL_VALIDATE_OTP,
+        JSON.stringify({ ...data, mobile: '0433222111' }) // TODO: mob from state
+      );
+      // TODO: use zod to parse response, ensure type correctness
+      const responseJson = JSON.parse(
+        response.response ?? '{}'
+      ) as IMobileAuth & {
+        data: string;
+      };
+      console.log('responseJson', responseJson);
+
+      if (!response.success) {
+        setError('otp', {
+          type: 'server',
+          message: response.error,
+        });
+        return;
+      }
+
+      // TODO: implement this properly
+      console.log('setting mobile auth', responseJson);
+      // setMobileAuth({
+      //   expires: responseJson.expires,
+      //   bearer: responseJson.bearer,
+      // });
+      nextStep();
+    } catch (error) {
+      console.error('OtpForm API error', error); // TODO: remove
+      setError('otp', {
+        type: 'server',
+        message: 'Network error. Please try again.',
+      });
+    }
+  };
+
+  return (
+    <form onSubmit={e => void handleSubmit(onSubmit)(e)} className="space-y-6">
+      <InputBasic
+        autoComplete="one-time-code"
+        label="OTP code"
+        placeholder="Enter OTP code"
+        type="number"
+        disabled={props.authFormState === 'mobile-invalid'}
+        error={errors.otp}
+        {...register('otp')}
+      />
+
+      <Button
+        type="submit"
+        text={isSubmitting ? 'Loading...' : 'Verify'}
+        disabled={isSubmitting || props.authFormState === 'mobile-invalid'}
       />
     </form>
   );

@@ -6,12 +6,13 @@ import { useOnboarding } from '../hooks/useOnboarding';
 
 // TODO: fix app height re responsive
 const OnboardingContent = () => {
-  const { currentStep, nextStep } = useOnboarding();
+  const { currentStep } = useOnboarding();
+  // add new hook for localStorage to manage formData persist (inc. mobile)
 
   return (
     <main className="flex min-h-full flex-col pt-12">
       <Logo />
-      {currentStep === 1 && <StepOneAuth onSuccess={nextStep} />}
+      {currentStep === 1 && <StepOneAuth />}
       {currentStep > 1 && <OnboardForm />}
     </main>
   );
