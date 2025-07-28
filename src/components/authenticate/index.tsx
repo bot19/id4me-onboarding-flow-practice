@@ -25,6 +25,8 @@ const RESEND_CODE_WAIT_TIME = 15000;
 
 // TODO: fix input-button thin border (right)
 // TODO: what to do when going back to this step?
+// TODO: abstract child components
+// TODO: input regex number only better than type="number", as up/down value
 export const StepOneAuth = () => {
   const [authFormState, setAuthFormState] =
     useState<AuthFormState>('mobile-invalid');
@@ -111,6 +113,7 @@ const MobileNumberForm = (props: MobileNumberFormProps) => {
       />
 
       <Button
+        colour="primary"
         type="submit"
         text={
           isSubmitting
@@ -139,7 +142,7 @@ const OtpForm = (props: OtpFormProps) => {
     resolver: zodResolver(MobileOtpSchema),
   });
 
-  const { nextStep } = useOnboarding();
+  const { setMobileAuth, goToStep } = useOnboarding();
 
   const onSubmit: SubmitHandler<MobileOtpType> = async data => {
     try {
@@ -164,12 +167,12 @@ const OtpForm = (props: OtpFormProps) => {
       }
 
       // TODO: implement this properly
-      console.log('setting mobile auth', responseJson);
-      // setMobileAuth({
-      //   expires: responseJson.expires,
-      //   bearer: responseJson.bearer,
-      // });
-      nextStep();
+      // console.log('setting mobile auth', responseJson);
+      setMobileAuth({
+        expires: responseJson.expires,
+        bearer: responseJson.bearer,
+      });
+      goToStep(2);
     } catch (error) {
       console.error('OtpForm API error', error); // TODO: remove
       setError('otp', {
@@ -192,6 +195,7 @@ const OtpForm = (props: OtpFormProps) => {
       />
 
       <Button
+        colour="primary"
         type="submit"
         text={isSubmitting ? 'Loading...' : 'Verify'}
         disabled={isSubmitting || props.authFormState === 'mobile-invalid'}
