@@ -5,7 +5,7 @@ const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const years = Array.from({ length: 100 }, (_, i) => 2025 - i);
 
-export const StepTwo = () => {
+export const StepUserDetails = () => {
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
       <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">

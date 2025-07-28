@@ -1,5 +1,5 @@
-import { StepTwo } from './StepTwo';
-import { StepThree } from './StepThree';
+import { StepUserDetails } from './StepUserDetails';
+import { StepCreatePassword } from './StepCreatePassword';
 import { Success } from './Success';
 
 interface OnboardFormProps {
@@ -10,8 +10,8 @@ export const OnboardForm = (props: OnboardFormProps) => {
   return (
     <>
       <form action="#" method="POST">
-        {props.step === 2 && <StepTwo />}
-        {props.step === 3 && <StepThree />}
+        {props.step === 2 && <StepUserDetails />}
+        {props.step === 3 && <StepCreatePassword />}
       </form>
       {props.step === 4 && <Success />}
     </>

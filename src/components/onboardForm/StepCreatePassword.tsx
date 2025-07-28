@@ -1,7 +1,7 @@
 import { EyeIcon } from '@heroicons/react/16/solid';
 import { Feedback, ProgressBar, ProgressIndicator } from '../../ui';
 
-export const StepThree = () => {
+export const StepCreatePassword = () => {
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
       <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
