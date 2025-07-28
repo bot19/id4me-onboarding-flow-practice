@@ -2,26 +2,30 @@ import { ProgressIndicator } from '../../ui';
 import { StepOne } from './StepOne';
 import { StepTwo } from './StepTwo';
 import { StepThree } from './StepThree';
+import { Success } from './Success';
 
-const step = 3;
+const step = 1;
 
 export const OnboardForm = () => {
   return (
-    <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
-      <main className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
+    <main className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
+      <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
         <h2 className="mb-4 text-center text-2xl/9 font-bold tracking-tight text-secondary">
           Sign in to your account
         </h2>
 
-        <div className="mb-8 flex justify-center">
-          <ProgressIndicator step={step} />
-        </div>
+        {step !== 4 && (
+          <div className="mb-8 flex justify-center">
+            <ProgressIndicator step={step} />
+          </div>
+        )}
 
         {step === 1 && <StepOne />}
         {step === 2 && <StepTwo />}
         {step === 3 && <StepThree />}
-      </main>
-    </div>
+        {step === 4 && <Success />}
+      </div>
+    </main>
   );
 };
 
