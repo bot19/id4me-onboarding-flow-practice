@@ -1,3 +1,4 @@
+export { Button } from './Button';
 export { Feedback } from './Feedback';
 export { InputBasic } from './InputBasic';
 export { Logo } from './Logo';
