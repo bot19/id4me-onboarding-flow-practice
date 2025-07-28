@@ -3,7 +3,7 @@ import { Feedback, ProgressBar } from '../../ui';
 
 export const StepThree = () => {
   return (
-    <form action="#" method="POST" className="space-y-6">
+    <>
       <Feedback />
 
       <div>
@@ -87,6 +87,6 @@ export const StepThree = () => {
           </button>
         </div>
       </div>
-    </form>
+    </>
   );
 };

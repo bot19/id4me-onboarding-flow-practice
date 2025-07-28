@@ -6,7 +6,7 @@ const years = Array.from({ length: 100 }, (_, i) => 2025 - i);
 
 export const StepTwo = () => {
   return (
-    <form action="#" method="POST" className="space-y-6">
+    <>
       <div>
         <div className="flex justify-between">
           <label
@@ -183,6 +183,6 @@ export const StepTwo = () => {
           </button>
         </div>
       </div>
-    </form>
+    </>
   );
 };

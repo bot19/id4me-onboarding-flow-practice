@@ -3,10 +3,11 @@ import { StepOne } from './StepOne';
 import { StepTwo } from './StepTwo';
 import { StepThree } from './StepThree';
 import { Success } from './Success';
-
-const step = 1;
+import { useState } from 'react';
 
 export const OnboardForm = () => {
+  const [step] = useState(1);
+
   return (
     <main className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
       <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
@@ -20,9 +21,11 @@ export const OnboardForm = () => {
           </div>
         )}
 
-        {step === 1 && <StepOne />}
-        {step === 2 && <StepTwo />}
-        {step === 3 && <StepThree />}
+        <form action="#" method="POST" className="space-y-6">
+          {step === 1 && <StepOne />}
+          {step === 2 && <StepTwo />}
+          {step === 3 && <StepThree />}
+        </form>
         {step === 4 && <Success />}
       </div>
     </main>
