@@ -1,15 +1,21 @@
 import { z } from 'zod';
 
-// mobile verification; TODO: bonus - strict AU mobile number validation
-export const step1Schema = z.object({
-  phoneNumber: z
+// mobile verification;
+// TODO: bonus, strict AU mobile validation, eg: start 04..., +614...
+export const MobileNumberSchema = z.object({
+  mobile: z
     .string()
-    .min(10, 'Phone number must be at least 10 characters (eg: 0412345678)')
-    .max(12, 'Phone number must be at most 12 characters (eg: +61412345678)'),
+    .length(10, 'Mobile number must be exactly 10 digits')
+    .regex(/^04/, 'Mobile number must start with 04'),
+});
+export type MobileNumberType = z.infer<typeof MobileNumberSchema>;
+
+export const MobileOtpSchema = z.object({
+  otp: z.string().min(6, 'OTP must be 6 digits'),
 });
 
 // personal details
-export const step2Schema = z.object({
+export const UserDetailsSchema = z.object({
   fullName: z.string().min(3, 'Full name must be at least 3 characters'),
   email: z.email({ message: 'Please enter a valid email address' }),
   dateOfBirth: z.date({ message: 'Please enter a valid date of birth' }),
@@ -17,7 +23,7 @@ export const step2Schema = z.object({
 });
 
 // password
-export const step3Schema = z.object({
+export const CreatePasswordSchema = z.object({
   password: z
     .string()
     .min(8, 'Password must be at least 8 characters')
@@ -30,10 +36,10 @@ export const step3Schema = z.object({
     ),
 });
 
-export const CombinedOnboardSchema = z.object({
-  ...step1Schema.shape,
-  ...step2Schema.shape,
-  ...step3Schema.shape,
+export const OnboardSchema = z.object({
+  ...MobileNumberSchema.shape,
+  ...UserDetailsSchema.shape,
+  ...CreatePasswordSchema.shape,
 });
 
-export type CombinedOnboardType = z.infer<typeof CombinedOnboardSchema>;
+export type OnboardType = z.infer<typeof OnboardSchema>;
