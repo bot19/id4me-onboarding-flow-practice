@@ -11,8 +11,9 @@ export const MobileNumberSchema = z.object({
 export type MobileNumberType = z.infer<typeof MobileNumberSchema>;
 
 export const MobileOtpSchema = z.object({
-  otp: z.string().min(6, 'OTP must be 6 digits'),
+  otp: z.string().length(6, 'OTP must be 6 digits'),
 });
+export type MobileOtpType = z.infer<typeof MobileOtpSchema>;
 
 // personal details
 export const UserDetailsSchema = z.object({
