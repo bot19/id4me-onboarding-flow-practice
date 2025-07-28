@@ -1,9 +1,10 @@
 import { OnboardForm } from './components/onboardForm';
 import { Logo } from './ui';
 
+// TODO: fix app height re responsive
 function App() {
   return (
-    <div className="flex min-h-full flex-col justify-center py-12 xs:px-6 lg:px-8">
+    <div className="flex min-h-full flex-col justify-center pt-12">
       <Logo />
       <OnboardForm />
     </div>
