@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import type { IMobileAuth } from '../types';
 
 export interface OnboardingContextType {
   currentStep: number;
@@ -8,6 +9,10 @@ export interface OnboardingContextType {
   isFirstStep: boolean;
   isLastStep: boolean;
   totalSteps: number;
+  mobileAuth: IMobileAuth | null;
+  setMobileAuth: (mobileAuth: IMobileAuth) => void;
+  hasExpired: () => boolean;
+  validateMobileAuth: () => boolean;
 }
 
 export const OnboardingContext = createContext<

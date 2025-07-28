@@ -4,6 +4,7 @@ import {
   OnboardingContext,
   type OnboardingContextType,
 } from './OnboardingContext';
+import { type IMobileAuth } from '../types';
 
 interface OnboardingProviderProps {
   children: ReactNode;
@@ -17,6 +18,22 @@ export const OnboardingProvider = ({
   totalSteps = 4,
 }: OnboardingProviderProps) => {
   const [currentStep, setCurrentStep] = useState(initialStep);
+  const [mobileAuth, setMobileAuth] = useState<IMobileAuth | null>(null);
+
+  const hasExpired = () => {
+    if (!mobileAuth) return true;
+    return Date.now() > mobileAuth.expires;
+  };
+
+  const validateMobileAuth = () => {
+    if (hasExpired()) {
+      setCurrentStep(1);
+      setMobileAuth(null);
+      return false;
+    }
+
+    return true;
+  };
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
@@ -45,8 +62,12 @@ export const OnboardingProvider = ({
       isFirstStep: currentStep === 1,
       isLastStep: currentStep === totalSteps,
       totalSteps,
+      mobileAuth,
+      setMobileAuth,
+      hasExpired,
+      validateMobileAuth,
     }),
-    [currentStep]
+    [currentStep, mobileAuth]
   );
 
   return <OnboardingContext value={value}>{children}</OnboardingContext>;

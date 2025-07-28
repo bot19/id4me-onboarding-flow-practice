@@ -1,13 +1,6 @@
-import { ZodType } from 'zod';
-import { CombinedOnboardSchema } from './validators/onboard.validator';
+// TODO: delete if nothing by end of project
 
-type FieldKeys = keyof typeof CombinedOnboardSchema;
-
-// TODO: bonus - add icon
-export interface FormStep {
-  title: string;
-  position: number;
-  validationSchema: ZodType<unknown>;
-  component: React.ReactElement;
-  fields: FieldKeys[];
+export interface IMobileAuth {
+  bearer: string;
+  expires: number;
 }
