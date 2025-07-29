@@ -6,3 +6,4 @@ export { InputSelect } from './InputSelect';
 export { Logo } from './Logo';
 export { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
 export { ProgressIndicator } from './ProgressIndicator';
+export { AnimatedContent } from './AnimatedContent';
