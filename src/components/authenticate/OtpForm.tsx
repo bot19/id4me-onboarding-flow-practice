@@ -10,28 +10,45 @@ import { api, API_URL_VALIDATE_OTP } from '../../services/api';
 import { useOnboarding } from '../../hooks/useOnboarding';
 import type { IMobileAuth } from '../../types';
 import type { AuthFormState } from './types';
+import { useFormPersistence } from '../../hooks/useFormPersistence';
+import { FORM_STORAGE_KEYS, getMobileNumber } from '../../utils/formStorage';
 
 interface OtpFormProps {
   authFormState: AuthFormState;
 }
 
+// TODO: if auth token, don't need OTP
 export const OtpForm = (props: OtpFormProps) => {
+  const formMethods = useForm<MobileOtpType>({
+    resolver: zodResolver(MobileOtpSchema),
+  });
+
+  useFormPersistence(formMethods, FORM_STORAGE_KEYS.OTP);
+
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<MobileOtpType>({
-    resolver: zodResolver(MobileOtpSchema),
-  });
+  } = formMethods;
 
   const { setMobileAuth, goToStep } = useOnboarding();
 
   const onSubmit: SubmitHandler<MobileOtpType> = async data => {
     try {
+      const mobile = getMobileNumber();
+      if (!mobile) {
+        setError('otp', {
+          type: 'server',
+          message:
+            'Mobile number not found. Please restart the verification process.',
+        });
+        return;
+      }
+
       const response = await api.post(
         API_URL_VALIDATE_OTP,
-        JSON.stringify({ ...data, mobile: '0433222111' }) // TODO: mob from state
+        JSON.stringify({ ...data, mobile })
       );
       // TODO: use zod to parse response, ensure type correctness
       const responseJson = JSON.parse(

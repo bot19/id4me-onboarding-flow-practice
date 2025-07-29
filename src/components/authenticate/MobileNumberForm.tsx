@@ -8,6 +8,8 @@ import {
 } from '../../validators/onboard.validator';
 import { api, API_URL_SEND_OTP } from '../../services/api';
 import type { AuthFormState } from './types';
+import { useFormPersistence } from '../../hooks/useFormPersistence';
+import { FORM_STORAGE_KEYS } from '../../utils/formStorage';
 
 interface MobileNumberFormProps {
   authFormState: AuthFormState;
@@ -15,14 +17,18 @@ interface MobileNumberFormProps {
 }
 
 export const MobileNumberForm = (props: MobileNumberFormProps) => {
+  const formMethods = useForm<MobileNumberType>({
+    resolver: zodResolver(MobileNumberSchema),
+  });
+
+  useFormPersistence(formMethods, FORM_STORAGE_KEYS.MOBILE_NUMBER);
+
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<MobileNumberType>({
-    resolver: zodResolver(MobileNumberSchema),
-  });
+  } = formMethods;
 
   const onSubmit: SubmitHandler<MobileNumberType> = async data => {
     console.log('MobileNumberForm onSubmit', data);
