@@ -8,6 +8,16 @@ Initial planning/visualisation in [tldraw](https://www.tldraw.com/f/qEb5ev4E7duS
 
 ![diagram](./public/2025-07%20v1b%20iD4me%20onboard%20flow%20form.png)
 
+## Updates
+
+| Version | Description                                | Date       |
+| ------- | ------------------------------------------ | ---------- |
+| v1.0    | working app                                | 29-07-2025 |
+| v1.1    | focus on 1st input of each page on init    | 29-07-2025 |
+| v1.2    | fix react sync issues, use reducer pattern | 29-07-2025 |
+| v1.3    | basic step transition animations           | 29-07-2025 |
+| v1.4    | tests! (some unit + e2e tests)             | 29-07-2025 |
+
 ## Technical Stack & Architecture
 
 ### Core Technologies
