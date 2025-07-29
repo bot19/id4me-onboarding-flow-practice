@@ -9,6 +9,7 @@ import {
 } from '../../ui';
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
+import { useEffect } from 'react';
 
 // TODO: better way to submit from here.
 export const StepCreatePassword = () => {
@@ -16,8 +17,18 @@ export const StepCreatePassword = () => {
   const {
     register,
     trigger,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useOnboardForm();
+
+  // Focus the password input when component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFocus('password');
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [setFocus]);
 
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">

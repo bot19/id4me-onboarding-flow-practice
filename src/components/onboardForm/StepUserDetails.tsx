@@ -7,6 +7,7 @@ import {
 } from '../../ui';
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
+import { useEffect } from 'react';
 
 const CONFIRM_MESSAGES = {
   GO_BACK_VERIFICATION:
@@ -19,8 +20,18 @@ export const StepUserDetails = () => {
   const {
     register,
     trigger,
+    setFocus,
     formState: { errors },
   } = useOnboardForm();
+
+  // Focus the Full Name input when component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFocus('fullName');
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [setFocus]);
 
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">

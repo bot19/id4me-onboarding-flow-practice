@@ -10,6 +10,7 @@ import { api, API_URL_SEND_OTP } from '../../services/api';
 import type { AuthFormState } from './types';
 import { useFormPersistence } from '../../hooks/useFormPersistence';
 import { FORM_STORAGE_KEYS } from '../../utils/formStorage';
+import { useEffect } from 'react';
 
 interface MobileNumberFormProps {
   authFormState: AuthFormState;
@@ -27,8 +28,19 @@ export const MobileNumberForm = (props: MobileNumberFormProps) => {
     register,
     handleSubmit,
     setError,
+    setFocus,
     formState: { errors, isSubmitting },
   } = formMethods;
+
+  // Focus the mobile input when component mounts
+  useEffect(() => {
+    // Use a longer delay to ensure everything is ready
+    const timer = setTimeout(() => {
+      setFocus('mobile');
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [setFocus]);
 
   const onSubmit: SubmitHandler<MobileNumberType> = async data => {
     console.log('MobileNumberForm onSubmit', data);

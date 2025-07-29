@@ -16,6 +16,7 @@ import {
   getMobileNumber,
   clearFormData,
 } from '../../utils/formStorage';
+import { useEffect } from 'react';
 
 interface OtpFormProps {
   authFormState: AuthFormState;
@@ -33,10 +34,22 @@ export const OtpForm = (props: OtpFormProps) => {
     register,
     handleSubmit,
     setError,
+    setFocus,
     formState: { errors, isSubmitting },
   } = formMethods;
 
   const { setMobileAuth, goToStep } = useOnboarding();
+
+  // Focus the OTP input when OTP is sent
+  useEffect(() => {
+    if (props.authFormState === 'otp-sent') {
+      const timer = setTimeout(() => {
+        setFocus('otp');
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [props.authFormState, setFocus]);
 
   const onSubmit: SubmitHandler<MobileOtpType> = async data => {
     try {
@@ -81,10 +94,9 @@ export const OtpForm = (props: OtpFormProps) => {
 
       goToStep(2);
     } catch (error) {
-      console.error('OtpForm API error', error); // TODO: remove
       setError('otp', {
         type: 'server',
-        message: 'Network error. Please try again.',
+        message: `Network error. Please try again (${error?.toString()})`,
       });
     }
   };
