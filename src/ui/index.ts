@@ -4,5 +4,5 @@ export { Heading } from './Heading';
 export { InputBasic } from './InputBasic';
 export { InputSelect } from './InputSelect';
 export { Logo } from './Logo';
-export { ProgressBar } from './ProgressBar';
+export { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
 export { ProgressIndicator } from './ProgressIndicator';
