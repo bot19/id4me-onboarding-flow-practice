@@ -1,10 +1,8 @@
 import { Button, Heading } from '../../ui';
 import { useOnboarding } from '../../hooks/useOnboarding';
-import { useOnboardingPersistence } from '../../hooks/useOnboardingPersistence';
 
 export const Success = () => {
   const { dispatch } = useOnboarding();
-  const { clearSavedState } = useOnboardingPersistence();
 
   const handleGetStarted = () => {
     const confirmed = window.confirm(
@@ -12,8 +10,7 @@ export const Success = () => {
     );
 
     if (confirmed) {
-      clearSavedState(); // Clear onboarding state when restarting
-      dispatch({ type: 'GO_TO_STEP', payload: 1 });
+      dispatch({ type: 'RESET_TO_STEP_1' }); // Clear onboarding state when restarting
     }
   };
 
