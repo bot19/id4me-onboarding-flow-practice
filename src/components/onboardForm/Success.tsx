@@ -3,7 +3,7 @@ import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardingPersistence } from '../../hooks/useOnboardingPersistence';
 
 export const Success = () => {
-  const { goToStep } = useOnboarding();
+  const { dispatch } = useOnboarding();
   const { clearSavedState } = useOnboardingPersistence();
 
   const handleGetStarted = () => {
@@ -13,7 +13,7 @@ export const Success = () => {
 
     if (confirmed) {
       clearSavedState(); // Clear onboarding state when restarting
-      goToStep(1);
+      dispatch({ type: 'GO_TO_STEP', payload: 1 });
     }
   };
 

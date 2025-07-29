@@ -38,7 +38,7 @@ export const OtpForm = (props: OtpFormProps) => {
     formState: { errors, isSubmitting },
   } = formMethods;
 
-  const { setMobileAuth, goToStep } = useOnboarding();
+  const { dispatch } = useOnboarding();
 
   // Focus the OTP input when OTP is sent
   useEffect(() => {
@@ -83,16 +83,20 @@ export const OtpForm = (props: OtpFormProps) => {
         return;
       }
 
-      // TODO: implement this properly
-      setMobileAuth({
-        expires: responseJson.expires,
-        bearer: responseJson.bearer,
+      // Atomic update - both auth and step change together
+      dispatch({
+        type: 'VERIFY_MOBILE_AUTH',
+        payload: {
+          auth: {
+            expires: responseJson.expires,
+            bearer: responseJson.bearer,
+          },
+          nextStep: 2,
+        },
       });
 
       // Clear OTP form data after successful verification
       clearFormData(FORM_STORAGE_KEYS.OTP);
-
-      goToStep(2);
     } catch (error) {
       setError('otp', {
         type: 'server',

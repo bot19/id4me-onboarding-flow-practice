@@ -6,7 +6,8 @@ import { useOnboarding } from '../hooks/useOnboarding';
 
 // TODO: fix app height re responsive
 const OnboardingContent = () => {
-  const { currentStep } = useOnboarding();
+  const { state } = useOnboarding();
+  const { currentStep } = state;
   // add new hook for localStorage to manage formData persist (inc. mobile)
 
   return (

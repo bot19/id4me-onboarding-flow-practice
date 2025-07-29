@@ -13,7 +13,8 @@ import { useEffect } from 'react';
 
 // TODO: better way to submit from here.
 export const StepCreatePassword = () => {
-  const { currentStep, prevStep } = useOnboarding();
+  const { state, dispatch } = useOnboarding();
+  const { currentStep } = state;
   const {
     register,
     trigger,
@@ -93,7 +94,7 @@ export const StepCreatePassword = () => {
               colour="light"
               text="Back"
               type="button"
-              onClick={prevStep}
+              onClick={() => dispatch({ type: 'PREV_STEP' })}
               disabled={isSubmitting}
             />
 

@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useReducer, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
+import { onboardingReducer, type OnboardingState } from './onboardingReducer';
 import {
   OnboardingContext,
   type OnboardingContextType,
@@ -9,66 +10,34 @@ import { useOnboardingPersistence } from '../hooks/useOnboardingPersistence';
 interface OnboardingProviderProps {
   children: ReactNode;
   initialStep?: number;
-  totalSteps?: number;
 }
 
 export const OnboardingProvider = ({
   children,
   initialStep = 1,
-  totalSteps = 4,
 }: OnboardingProviderProps) => {
   const { currentStep, setCurrentStep, mobileAuth, setMobileAuth } =
     useOnboardingPersistence(initialStep);
 
-  const hasExpired = () => {
-    if (!mobileAuth) return true;
-    return Date.now() > mobileAuth.expires;
+  const initialState: OnboardingState = {
+    currentStep,
+    mobileAuth,
   };
 
-  // TODO: might not use, possibly remove
-  const validateMobileAuth = () => {
-    if (hasExpired()) {
-      setCurrentStep(1);
-      setMobileAuth(null);
-      return false;
-    }
+  const [state, dispatch] = useReducer(onboardingReducer, initialState);
 
-    return true;
-  };
+  // Sync state changes back to localStorage
+  useEffect(() => {
+    setCurrentStep(state.currentStep);
+  }, [state.currentStep, setCurrentStep]);
 
-  const nextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const goToStep = (step: number) => {
-    if (step >= 1 && step <= totalSteps) {
-      setCurrentStep(step);
-    }
-  };
+  useEffect(() => {
+    setMobileAuth(state.mobileAuth);
+  }, [state.mobileAuth, setMobileAuth]);
 
   const value = useMemo<OnboardingContextType>(
-    () => ({
-      currentStep,
-      nextStep,
-      prevStep,
-      goToStep,
-      isFirstStep: currentStep === 1, // TODO: check if used
-      isLastStep: currentStep === totalSteps,
-      totalSteps,
-      mobileAuth,
-      setMobileAuth,
-      hasExpired,
-      validateMobileAuth,
-    }),
-    [currentStep, mobileAuth]
+    () => ({ state, dispatch }),
+    [state, dispatch]
   );
 
   return <OnboardingContext value={value}>{children}</OnboardingContext>;
