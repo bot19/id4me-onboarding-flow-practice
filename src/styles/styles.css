@@ -3,7 +3,9 @@
 /* Color Theme using CSS 4 @theme directive */
 @theme {
   /* TODO: should be pixel-based */
-  --breakpoint-xs: 32rem;
+  --breakpoint-xs: 32rem; /* 512px */
+
+  --base-font-size: 16px;
 
   --color-primary: #733ca4; /* dark purple */
   --color-secondary: #000000; /* black, text */
@@ -20,6 +22,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: var(--base-font-size);
 
   color-scheme: light dark;
   color: var(--color-secondary);
