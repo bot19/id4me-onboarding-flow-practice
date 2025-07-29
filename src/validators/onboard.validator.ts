@@ -24,8 +24,7 @@ export const UserDetailsSchema = z.object({
   email: z.email({ message: 'Please enter a valid email address' }),
   dateOfBirth: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Please select a valid date')
-    .transform(val => new Date(val)),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Please select a valid date'),
   gender: z.string().optional(),
 });
 export type UserDetailsType = z.infer<typeof UserDetailsSchema>;
