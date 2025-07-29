@@ -218,6 +218,8 @@ npm run test
 5. **Improve accessibility**: Accessibility can more thoroughly tested, improvements can be made
 6. **WebOTP**: [New/experimental](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API), but could add for better user experience with fallback
 7. **More Animations**: Increase visuals and interaction experience, can have positive user impact
+8. **Age limiting**: Perhaps we can restrict age limits, eg: from 18-80
+9. **Custom fonts**: Enhance visual quality and perhaps readability
 
 ## Conclusion/final thoughts
 
