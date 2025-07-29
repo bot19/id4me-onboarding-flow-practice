@@ -21,18 +21,9 @@ import {
 import { useOnboardingPersistence } from '../../hooks/useOnboardingPersistence';
 
 export const OnboardForm = () => {
-  const { currentStep, nextStep } = useOnboarding();
+  const { currentStep, nextStep, hasExpired, goToStep } = useOnboarding();
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const { clearSavedState } = useOnboardingPersistence();
-
-  // Error messages
-  const ERROR_MESSAGES = {
-    MOBILE_NOT_FOUND:
-      'Mobile number not found. Please restart the verification process.',
-    VALIDATION_FAILED: (message: string) => `Validation failed: ${message}`,
-    ACCOUNT_CREATION_FAILED: 'An error occurred while creating your account',
-    UNEXPECTED_ERROR: 'An unexpected error occurred. Please try again.',
-  } as const;
 
   const formMethods = useForm<OnboardType>({
     resolver: zodResolver(OnboardSchema),
@@ -52,6 +43,15 @@ export const OnboardForm = () => {
   const onSubmit = async (data: OnboardType) => {
     if (!mobileNumber) {
       alert(ERROR_MESSAGES.MOBILE_NOT_FOUND);
+      return;
+    }
+
+    // Check auth token validity
+    if (hasExpired()) {
+      const shouldRestart = confirm(CONFIRM_MESSAGES.EXPIRED_SESSION);
+      if (shouldRestart) {
+        goToStep(1);
+      }
       return;
     }
 
@@ -112,3 +112,17 @@ export const OnboardForm = () => {
     </FormProvider>
   );
 };
+
+// Error messages, TODO: can be abstracted to global location?
+const ERROR_MESSAGES = {
+  MOBILE_NOT_FOUND:
+    'Mobile number not found. Please restart the verification process.',
+  VALIDATION_FAILED: (message: string) => `Validation failed: ${message}`,
+  ACCOUNT_CREATION_FAILED: 'An error occurred while creating your account',
+  UNEXPECTED_ERROR: 'An unexpected error occurred. Please try again.',
+} as const;
+
+const CONFIRM_MESSAGES = {
+  EXPIRED_SESSION:
+    'Your session has expired. Would you like to restart the verification process?',
+} as const;
