@@ -50,9 +50,9 @@ export const CreatePasswordSchema = z
     path: ['confirmPassword'],
   });
 
-export const OnboardSchema = z.object({
-  ...UserDetailsSchema.shape,
-  ...CreatePasswordSchema.shape,
-});
+export const OnboardSchema = z.intersection(
+  UserDetailsSchema,
+  CreatePasswordSchema
+);
 
 export type OnboardType = z.infer<typeof OnboardSchema>;
