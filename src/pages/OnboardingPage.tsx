@@ -4,7 +4,6 @@ import { StepOneAuth } from '../components/authenticate';
 import { OnboardingProvider } from '../contexts/OnboardingProvider';
 import { useOnboarding } from '../hooks/useOnboarding';
 
-// TODO: fix app height re responsive
 const OnboardingContent = () => {
   const { state } = useOnboarding();
   const { currentStep } = state;

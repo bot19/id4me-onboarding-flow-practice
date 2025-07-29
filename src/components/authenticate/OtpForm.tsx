@@ -22,7 +22,6 @@ interface OtpFormProps {
   authFormState: AuthFormState;
 }
 
-// TODO: if auth token, don't need OTP
 export const OtpForm = (props: OtpFormProps) => {
   const formMethods = useForm<MobileOtpType>({
     resolver: zodResolver(MobileOtpSchema),

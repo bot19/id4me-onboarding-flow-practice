@@ -12,7 +12,6 @@ import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
 import { useEffect } from 'react';
 
-// TODO: better way to submit from here.
 export const StepCreatePassword = () => {
   const { state, dispatch } = useOnboarding();
   const { currentStep } = state;
@@ -115,6 +114,7 @@ export const StepCreatePassword = () => {
                         // Trigger the parent form's submit event
                         const form = document.querySelector('form');
                         if (form) {
+                          // TODO: better way to submit from here?
                           form.requestSubmit();
                         }
                       }
