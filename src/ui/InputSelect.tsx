@@ -46,6 +46,7 @@ export const InputSelect = ({
         <div className="grid grid-cols-1 focus-within:relative">
           <select
             id={name}
+            name={name}
             autoComplete={autoComplete}
             aria-label={label}
             disabled={disabled}

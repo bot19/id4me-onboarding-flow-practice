@@ -10,7 +10,7 @@ export const useFormPersistence = <T extends Record<string, unknown>>(
   // Save form data to localStorage whenever it changes
   useEffect(() => {
     const subscription = watch(data => {
-      if (data && Object.keys(data).length > 0) {
+      if (data) {
         localStorage.setItem(storageKey, JSON.stringify(data));
       }
     });
