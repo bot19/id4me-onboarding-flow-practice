@@ -1,12 +1,9 @@
-// TODO: Replace with actual logo
+import LogoSvg from '../assets/iD4meLogo.svg?react';
+
 export const Logo = () => {
   return (
-    <div className="xs:mx-auto xs:w-full xs:max-w-md">
-      <img
-        alt="Your Company"
-        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-        className="mx-auto h-10 w-auto"
-      />
+    <div className="xs:mx-auto xs:w-full xs:max-w-md flex justify-center">
+      <LogoSvg className="w-[12rem] h-auto" />
     </div>
   );
 };
