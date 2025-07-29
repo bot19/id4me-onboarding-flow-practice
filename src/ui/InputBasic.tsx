@@ -1,5 +1,6 @@
 import { cn } from '../utils';
 import type { FieldError } from 'react-hook-form';
+import { CalendarIcon } from '@heroicons/react/16/solid';
 
 interface InputBasicProps {
   autoComplete: string;
@@ -44,7 +45,7 @@ export const InputBasic = ({
         )}
       </div>
 
-      <div className="mt-2 flex">
+      <div className={cn('mt-2 flex', type === 'date' && 'relative')}>
         <input
           id={name}
           name={name}
@@ -62,6 +63,12 @@ export const InputBasic = ({
           )}
           {...inputProps}
         />
+        {type === 'date' && (
+          <CalendarIcon
+            aria-hidden="true"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 size-5 text-gray-900 sm:size-4"
+          />
+        )}
         {button && (
           <button
             type="button"
