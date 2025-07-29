@@ -3,6 +3,7 @@ export const FORM_STORAGE_KEYS = {
   MOBILE_NUMBER: 'mobile-number-form',
   OTP: 'otp-form',
   ONBOARDING: 'onboarding-form-data',
+  ONBOARDING_STATE: 'onboarding-state',
 } as const;
 
 // Utility to clear all form data

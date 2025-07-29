@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { ReactNode } from 'react';
 import {
   OnboardingContext,
   type OnboardingContextType,
 } from './OnboardingContext';
-import { type IMobileAuth } from '../types';
+import { useOnboardingPersistence } from '../hooks/useOnboardingPersistence';
 
 interface OnboardingProviderProps {
   children: ReactNode;
@@ -17,8 +17,8 @@ export const OnboardingProvider = ({
   initialStep = 1,
   totalSteps = 4,
 }: OnboardingProviderProps) => {
-  const [currentStep, setCurrentStep] = useState(initialStep);
-  const [mobileAuth, setMobileAuth] = useState<IMobileAuth | null>(null);
+  const { currentStep, setCurrentStep, mobileAuth, setMobileAuth } =
+    useOnboardingPersistence(initialStep);
 
   const hasExpired = () => {
     if (!mobileAuth) return true;

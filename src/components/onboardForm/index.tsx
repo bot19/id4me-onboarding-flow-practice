@@ -18,11 +18,13 @@ import {
   clearAllFormData,
   getMobileNumber,
 } from '../../utils/formStorage';
+import { useOnboardingPersistence } from '../../hooks/useOnboardingPersistence';
 
 export const OnboardForm = () => {
   const { currentStep, nextStep } = useOnboarding();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
+  const { clearSavedState } = useOnboardingPersistence();
 
   const formMethods = useForm<OnboardType>({
     resolver: zodResolver(OnboardSchema),
@@ -78,6 +80,7 @@ export const OnboardForm = () => {
       if (response.success) {
         console.log('User created successfully:', response.response);
         clearAllFormData(); // Clear all form data on successful acc creation
+        clearSavedState(); // Clear onboarding state
         nextStep();
       } else {
         setSubmitError(
