@@ -16,7 +16,8 @@ const CONFIRM_MESSAGES = {
 
 // TODO: set DoB picker to validate against age limit
 export const StepUserDetails = () => {
-  const { currentStep, nextStep, setMobileAuth, goToStep } = useOnboarding();
+  const { state, dispatch } = useOnboarding();
+  const { currentStep } = state;
   const {
     register,
     trigger,
@@ -96,8 +97,7 @@ export const StepUserDetails = () => {
                   CONFIRM_MESSAGES.GO_BACK_VERIFICATION
                 );
                 if (shouldGoBack) {
-                  setMobileAuth(null); // Clear auth token
-                  goToStep(1); // Go to mobile verification step
+                  dispatch({ type: 'RESET_TO_STEP_1' });
                 }
               }}
             />
@@ -115,7 +115,7 @@ export const StepUserDetails = () => {
                     'gender',
                   ]).then(isValid => {
                     if (isValid) {
-                      nextStep();
+                      dispatch({ type: 'NEXT_STEP' });
                     }
                   });
                 }}

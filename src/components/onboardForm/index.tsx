@@ -18,12 +18,12 @@ import {
   clearAllFormData,
   getMobileNumber,
 } from '../../utils/formStorage';
-import { useOnboardingPersistence } from '../../hooks/useOnboardingPersistence';
+import { validateMobileAuth } from '../../utils/onboardingUtils';
 
 export const OnboardForm = () => {
-  const { currentStep, nextStep, hasExpired, goToStep } = useOnboarding();
+  const { state, dispatch } = useOnboarding();
+  const { currentStep, mobileAuth } = state;
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
-  const { clearSavedState } = useOnboardingPersistence();
 
   const formMethods = useForm<OnboardType>({
     resolver: zodResolver(OnboardSchema),
@@ -47,10 +47,10 @@ export const OnboardForm = () => {
     }
 
     // Check auth token validity
-    if (hasExpired()) {
+    if (!validateMobileAuth(mobileAuth, dispatch)) {
       const shouldRestart = confirm(CONFIRM_MESSAGES.EXPIRED_SESSION);
       if (shouldRestart) {
-        goToStep(1);
+        dispatch({ type: 'GO_TO_STEP', payload: 1 });
       }
       return;
     }
@@ -85,8 +85,7 @@ export const OnboardForm = () => {
       if (response.success) {
         console.log('User created successfully:', response.response);
         clearAllFormData(); // Clear all form data on successful acc creation
-        clearSavedState(); // Clear onboarding state
-        nextStep();
+        dispatch({ type: 'NEXT_STEP' });
       } else {
         const errorMsg =
           response.error ?? ERROR_MESSAGES.ACCOUNT_CREATION_FAILED;

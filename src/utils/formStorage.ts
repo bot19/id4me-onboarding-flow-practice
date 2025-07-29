@@ -6,9 +6,15 @@ export const FORM_STORAGE_KEYS = {
   ONBOARDING_STATE: 'onboarding-state',
 } as const;
 
-// Utility to clear all form data
+// Utility to clear all form data (but not onboarding state)
 export const clearAllFormData = () => {
-  Object.values(FORM_STORAGE_KEYS).forEach(key => {
+  const formKeys = [
+    FORM_STORAGE_KEYS.MOBILE_NUMBER,
+    FORM_STORAGE_KEYS.OTP,
+    FORM_STORAGE_KEYS.ONBOARDING,
+  ];
+
+  formKeys.forEach(key => {
     localStorage.removeItem(key);
   });
 };

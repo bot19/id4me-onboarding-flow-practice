@@ -1,18 +1,9 @@
 import { createContext } from 'react';
-import type { IMobileAuth } from '../types';
+import type { OnboardingState, OnboardingAction } from './onboardingReducer';
 
 export interface OnboardingContextType {
-  currentStep: number;
-  nextStep: () => void;
-  prevStep: () => void;
-  goToStep: (step: number) => void;
-  isFirstStep: boolean;
-  isLastStep: boolean;
-  totalSteps: number;
-  mobileAuth: IMobileAuth | null;
-  setMobileAuth: (mobileAuth: IMobileAuth | null) => void;
-  hasExpired: () => boolean;
-  validateMobileAuth: () => boolean;
+  state: OnboardingState;
+  dispatch: React.Dispatch<OnboardingAction>;
 }
 
 export const OnboardingContext = createContext<
