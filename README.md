@@ -197,6 +197,14 @@ npm run test
 - **Husky + Lint-staged**: Pre-commit hooks for quality control
 - **TypeScript**: Compile-time error checking
 
+### Browsers tested
+
+| Browser      | Version                                       | Scope                     |
+| ------------ | --------------------------------------------- | ------------------------- |
+| Chrome       | Version 138.0.7204.169                        | built app, full flow test |
+| Arc (Chrome) | Ver. 1.104.0 (65533), Chromium 138.0.7204.158 | full flow test            |
+| Safari       | Version 18.4 (20621.1.15.11.10)               | full flow test            |
+
 ### API response mocking
 
 - **Send OTP to mobile**: "0433222111" = mobile already in use, "0400000000" = network/server error
