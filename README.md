@@ -187,6 +187,11 @@ npm run test
 - **Husky + Lint-staged**: Pre-commit hooks for quality control
 - **TypeScript**: Compile-time error checking
 
+### API response mocking
+
+- **Send OTP to mobile**: "0433222111" = mobile already in use, "0400000000" = network/server error
+- **Validate OTP code**: "000000" = wrong OTP code
+
 ## Assumptions & Limitations
 
 ### Assumptions Made
