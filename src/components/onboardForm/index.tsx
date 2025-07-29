@@ -22,9 +22,17 @@ import { useOnboardingPersistence } from '../../hooks/useOnboardingPersistence';
 
 export const OnboardForm = () => {
   const { currentStep, nextStep } = useOnboarding();
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const { clearSavedState } = useOnboardingPersistence();
+
+  // Error messages
+  const ERROR_MESSAGES = {
+    MOBILE_NOT_FOUND:
+      'Mobile number not found. Please restart the verification process.',
+    VALIDATION_FAILED: (message: string) => `Validation failed: ${message}`,
+    ACCOUNT_CREATION_FAILED: 'An error occurred while creating your account',
+    UNEXPECTED_ERROR: 'An unexpected error occurred. Please try again.',
+  } as const;
 
   const formMethods = useForm<OnboardType>({
     resolver: zodResolver(OnboardSchema),
@@ -42,12 +50,8 @@ export const OnboardForm = () => {
   }, []);
 
   const onSubmit = async (data: OnboardType) => {
-    setSubmitError(null); // Clear any previous errors
-
     if (!mobileNumber) {
-      setSubmitError(
-        'Mobile number not found. Please restart the verification process.'
-      );
+      alert(ERROR_MESSAGES.MOBILE_NOT_FOUND);
       return;
     }
 
@@ -65,9 +69,10 @@ export const OnboardForm = () => {
 
       if (!validationResult.success) {
         const firstError = validationResult.error.issues[0];
-        setSubmitError(
-          `Validation failed: ${firstError?.message ?? 'Invalid data'}`
+        const errorMsg = ERROR_MESSAGES.VALIDATION_FAILED(
+          firstError?.message ?? 'Invalid data'
         );
+        alert(errorMsg);
         return;
       }
 
@@ -83,12 +88,12 @@ export const OnboardForm = () => {
         clearSavedState(); // Clear onboarding state
         nextStep();
       } else {
-        setSubmitError(
-          response.error ?? 'An error occurred while creating your account'
-        );
+        const errorMsg =
+          response.error ?? ERROR_MESSAGES.ACCOUNT_CREATION_FAILED;
+        alert(errorMsg);
       }
     } catch {
-      setSubmitError('An unexpected error occurred. Please try again.');
+      alert(ERROR_MESSAGES.UNEXPECTED_ERROR);
     }
   };
 
@@ -101,25 +106,7 @@ export const OnboardForm = () => {
         }}
       >
         {currentStep === 2 && <StepUserDetails />}
-        {currentStep === 3 && (
-          <>
-            {submitError && (
-              <div className="rounded-md bg-red-50 p-4 mb-6">
-                <div className="flex">
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">
-                      Submission Error
-                    </h3>
-                    <div className="mt-2 text-sm text-red-700">
-                      {submitError}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <StepCreatePassword />
-          </>
-        )}
+        {currentStep === 3 && <StepCreatePassword />}
       </form>
       {currentStep === 4 && <Success />}
     </FormProvider>
