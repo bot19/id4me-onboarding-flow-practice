@@ -25,6 +25,7 @@ export const OnboardingProvider = ({
     return Date.now() > mobileAuth.expires;
   };
 
+  // TODO: might not use, possibly remove
   const validateMobileAuth = () => {
     if (hasExpired()) {
       setCurrentStep(1);
@@ -59,7 +60,7 @@ export const OnboardingProvider = ({
       nextStep,
       prevStep,
       goToStep,
-      isFirstStep: currentStep === 1,
+      isFirstStep: currentStep === 1, // TODO: check if used
       isLastStep: currentStep === totalSteps,
       totalSteps,
       mobileAuth,
