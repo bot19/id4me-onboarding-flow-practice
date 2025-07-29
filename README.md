@@ -76,7 +76,7 @@ src/
 #### 5. Accessibility Features
 
 - Proper ARIA labels and semantic HTML
-- Keyboard navigation support
+- Keyboard navigation support (form can be completed via just keyboard)
 - Focus management between form fields
 - Screen reader friendly error messages
 
