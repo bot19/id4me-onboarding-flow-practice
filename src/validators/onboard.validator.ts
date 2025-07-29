@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // mobile verification;
-// TODO: bonus, strict AU mobile validation, eg: start 04..., +614...
+// TODO: bonus, strict AU mobile validation, eg: +614...
 export const MobileNumberSchema = z.object({
   mobile: z
     .string()
@@ -17,28 +17,41 @@ export type MobileOtpType = z.infer<typeof MobileOtpSchema>;
 
 // personal details
 export const UserDetailsSchema = z.object({
-  fullName: z.string().min(3, 'Full name must be at least 3 characters'),
+  fullName: z
+    .string()
+    .min(3, 'Full name must be at least 3 characters')
+    .max(128, 'Full name must be less than 128 characters'),
   email: z.email({ message: 'Please enter a valid email address' }),
-  dateOfBirth: z.date({ message: 'Please enter a valid date of birth' }),
-  gender: z.enum(['male', 'female', 'other']).optional(),
+  dateOfBirth: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Please select a valid date')
+    .transform(val => new Date(val)),
+  gender: z.string().optional(),
 });
+export type UserDetailsType = z.infer<typeof UserDetailsSchema>;
 
 // password
-export const CreatePasswordSchema = z.object({
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .regex(/[0-9]/, 'Password must contain at least one number')
-    .regex(
-      /[^A-Za-z0-9]/,
-      'Password must contain at least one special character'
-    ),
-});
+export const CreatePasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters')
+      .max(128, 'Password must be less than 128 characters')
+      .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+      .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+      .regex(/[0-9]/, 'Password must contain at least one number')
+      .regex(
+        /[^A-Za-z0-9]/,
+        'Password must contain at least one special character'
+      ),
+    confirmPassword: z.string(),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 export const OnboardSchema = z.object({
-  ...MobileNumberSchema.shape,
   ...UserDetailsSchema.shape,
   ...CreatePasswordSchema.shape,
 });
