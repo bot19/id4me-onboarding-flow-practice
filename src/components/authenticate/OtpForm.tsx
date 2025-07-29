@@ -71,7 +71,6 @@ export const OtpForm = (props: OtpFormProps) => {
       }
 
       // TODO: implement this properly
-      // console.log('setting mobile auth', responseJson);
       setMobileAuth({
         expires: responseJson.expires,
         bearer: responseJson.bearer,
