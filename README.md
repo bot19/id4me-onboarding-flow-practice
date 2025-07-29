@@ -1,8 +1,12 @@
-# Responsive 3-step onboarding flow for web application using React
+# Responsive 3-step onboarding flow for web app
 
 ## Project Overview
 
 This project implements a responsive 3-step onboarding flow for a web application using React 19, TypeScript, and Tailwind CSS. The application guides users through mobile verification, personal details collection, and password setup with comprehensive form validation and persistence.
+
+Initial planning/visualisation in [tldraw](https://www.tldraw.com/f/qEb5ev4E7duSW61d0sRrc?d=v-760.-2.3457.2802.obZgBKSkg0C5GXAgahaq0):
+
+![diagram](./public/2025-07%20v1b%20iD4me%20onboard%20flow%20form.png)
 
 ## Technical Stack & Architecture
 
@@ -45,7 +49,7 @@ src/
 
 #### 1. Multi-Step Form Flow
 
-- **Step 1**: Mobile number input with OTP verification
+- **Step 1**: Mobile number input with OTP verification (acts as authentication)
 - **Step 2**: Personal details collection (name, email, DOB, gender)
 - **Step 3**: Password creation with strength validation
 - **Success**: Completion screen with "Get Started" button
@@ -188,9 +192,10 @@ npm run test
 ### Assumptions Made
 
 1. **Mock API**: Simulated backend interactions for OTP sending and form submission
-2. **Local Storage**: Form data persistence using browser localStorage
-3. **No Backend**: All data is handled client-side for demonstration purposes
-4. **Browser Support**: Modern browsers with ES6+ support
+2. **Authenticate to onboard**: 3-step with 1st step as a login-like step/feature to give access to the onboarding form after
+3. **Local Storage**: Form data persistence using browser localStorage
+4. **No Backend**: All data is handled client-side for demonstration purposes
+5. **Browser Support**: Modern browsers with ES6+ support
 
 ### Known Limitations
 
@@ -199,15 +204,23 @@ npm run test
 3. **No Data Persistence**: Form data is not saved to a real database
 4. **No/Limited Unit Tests**: Focus was on functionality over test coverage, my have time to include some
 
-## Future Enhancements
+## Potential Improvements
 
-### Potential Improvements
+1. **Top-level toast/notification system**: Can handle API response messages better, improve visibility and user experience
+2. **Authentication gating**: Better implementation of auth gating to ensure only verified can complete onboarding flow
+3. **Upsize form UI**: Improved visibility on larger desktops, better user experience
+4. **More thorough testing**: Ensure critical onboarding flow is error/issue free
+5. **Improve accessibility**: Accessibility can more thoroughly tested, improvements can be made
+6. **WebOTP**: [New/experimental](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API), but could add for better user experience with fallback
+7. **More Animations**: Increase visuals and interaction experience, can have positive user impact
 
-1. **Item**: Notes...
+## Conclusion/final thoughts
 
-## Conclusion
+This form would be significantly more straight forward if it could be 1 big multi-step form, however by putting the Mobile verification first, I saw that as a login-like page/step that only verified users can continue onward to onboard.
 
-...
+Thus I separated it from steps 2 and 3, so while it is an "onboarding flow" to me it was like authenticate + onboarding form.
+
+It was a fun project. A lot of places will use off-the-shelf forms/platforms, so it was fun to build one from scratch using modern tech/standards. Thanks for your time.
 
 The project showcases:
 
