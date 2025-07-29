@@ -4,6 +4,7 @@ import {
   InputBasic,
   InputSelect,
   ProgressIndicator,
+  AnimatedContent,
 } from '../../ui';
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
@@ -36,7 +37,10 @@ export const StepUserDetails = () => {
 
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
-      <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
+      <AnimatedContent
+        stepKey="step-2"
+        className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12"
+      >
         <Heading text="Sign in to your account" classes="mb-4" />
 
         <div className="mb-8 flex justify-center">
@@ -123,7 +127,7 @@ export const StepUserDetails = () => {
             </div>
           </div>
         </div>
-      </div>
+      </AnimatedContent>
     </div>
   );
 };

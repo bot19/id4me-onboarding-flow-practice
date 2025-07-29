@@ -8,6 +8,16 @@ Initial planning/visualisation in [tldraw](https://www.tldraw.com/f/qEb5ev4E7duS
 
 ![diagram](./public/2025-07%20v1b%20iD4me%20onboard%20flow%20form.png)
 
+## Updates
+
+| Version | Description                                | Date       |
+| ------- | ------------------------------------------ | ---------- |
+| v1.0    | working app                                | 29-07-2025 |
+| v1.1    | focus on 1st input of each page on init    | 29-07-2025 |
+| v1.2    | fix react sync issues, use reducer pattern | 29-07-2025 |
+| v1.3    | subtle step transition animations          | 29-07-2025 |
+| v1.4    | tests! (some unit + e2e tests)             | 29-07-2025 |
+
 ## Technical Stack & Architecture
 
 ### Core Technologies
@@ -72,6 +82,7 @@ src/
 - Progress indicator showing current step (1/3, 2/3, 3/3)
 - Loading states during "API calls"
 - Responsive design for mobile and desktop
+- Subtle step transition animation for desktop (not necessary for mobile)
 
 #### 5. Accessibility Features
 
@@ -186,6 +197,14 @@ npm run test
 - **Prettier**: Consistent code formatting
 - **Husky + Lint-staged**: Pre-commit hooks for quality control
 - **TypeScript**: Compile-time error checking
+
+### Browsers tested
+
+| Browser      | Version                                       | Scope                     |
+| ------------ | --------------------------------------------- | ------------------------- |
+| Chrome       | Version 138.0.7204.169                        | built app, full flow test |
+| Arc (Chrome) | Ver. 1.104.0 (65533), Chromium 138.0.7204.158 | full flow test            |
+| Safari       | Version 18.4 (20621.1.15.11.10)               | full flow test            |
 
 ### API response mocking
 

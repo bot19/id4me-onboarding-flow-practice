@@ -6,12 +6,12 @@ import {
   InputBasic,
   PasswordStrengthIndicator,
   ProgressIndicator,
+  AnimatedContent,
 } from '../../ui';
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
 import { useEffect } from 'react';
 
-// TODO: better way to submit from here.
 export const StepCreatePassword = () => {
   const { state, dispatch } = useOnboarding();
   const { currentStep } = state;
@@ -33,7 +33,10 @@ export const StepCreatePassword = () => {
 
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
-      <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
+      <AnimatedContent
+        stepKey="step-3"
+        className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12"
+      >
         <Heading text="Create your password" classes="mb-4" />
 
         <div className="mb-8 flex justify-center">
@@ -111,6 +114,7 @@ export const StepCreatePassword = () => {
                         // Trigger the parent form's submit event
                         const form = document.querySelector('form');
                         if (form) {
+                          // TODO: better way to submit from here?
                           form.requestSubmit();
                         }
                       }
@@ -121,7 +125,7 @@ export const StepCreatePassword = () => {
             </div>
           </div>
         </div>
-      </div>
+      </AnimatedContent>
     </div>
   );
 };

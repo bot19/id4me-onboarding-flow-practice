@@ -1,4 +1,4 @@
-import { Heading, ProgressIndicator } from '../../ui';
+import { Heading, ProgressIndicator, AnimatedContent } from '../../ui';
 import { useEffect, useState } from 'react';
 import { MobileNumberForm } from './MobileNumberForm';
 import { OtpForm } from './OtpForm';
@@ -7,8 +7,7 @@ import type { AuthFormState } from './types';
 const RESEND_CODE_WAIT_TIME = 15000;
 
 // TODO: fix input-button thin border (right)
-// TODO: what to do when going back to this step?
-// TODO: input regex number only better than type="number", as up/down value
+// TODO: input regex number only, better than type="number", as up/down value
 export const StepOneAuth = () => {
   const [authFormState, setAuthFormState] =
     useState<AuthFormState>('mobile-invalid');
@@ -23,7 +22,10 @@ export const StepOneAuth = () => {
 
   return (
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
-      <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
+      <AnimatedContent
+        stepKey="step-1"
+        className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12"
+      >
         <Heading text="Mobile verification" classes="mb-4" />
 
         <div className="mb-8 flex justify-center">
@@ -38,7 +40,7 @@ export const StepOneAuth = () => {
 
           <OtpForm authFormState={authFormState} />
         </div>
-      </div>
+      </AnimatedContent>
     </div>
   );
 };
