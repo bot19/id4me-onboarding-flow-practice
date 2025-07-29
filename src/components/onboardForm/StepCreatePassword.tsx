@@ -10,12 +10,13 @@ import {
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
 
+// TODO: better way to submit from here.
 export const StepCreatePassword = () => {
-  const { currentStep, prevStep, nextStep } = useOnboarding();
+  const { currentStep, prevStep } = useOnboarding();
   const {
     register,
     trigger,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useOnboardForm();
 
   return (
@@ -72,18 +73,24 @@ export const StepCreatePassword = () => {
               text="Back"
               type="button"
               onClick={prevStep}
+              disabled={isSubmitting}
             />
 
             <div className="col-span-3">
               <Button
                 colour="primary"
-                text="Submit"
+                text={isSubmitting ? 'Loading...' : 'Submit'}
+                disabled={isSubmitting}
                 type="button"
                 onClick={() => {
                   void trigger(['password', 'confirmPassword']).then(
                     isValid => {
                       if (isValid) {
-                        nextStep();
+                        // Trigger the parent form's submit event
+                        const form = document.querySelector('form');
+                        if (form) {
+                          form.requestSubmit();
+                        }
                       }
                     }
                   );
