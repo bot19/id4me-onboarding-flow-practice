@@ -10,7 +10,7 @@ export interface OnboardingContextType {
   isLastStep: boolean;
   totalSteps: number;
   mobileAuth: IMobileAuth | null;
-  setMobileAuth: (mobileAuth: IMobileAuth) => void;
+  setMobileAuth: (mobileAuth: IMobileAuth | null) => void;
   hasExpired: () => boolean;
   validateMobileAuth: () => boolean;
 }

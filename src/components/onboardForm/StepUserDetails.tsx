@@ -8,9 +8,14 @@ import {
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
 
+const CONFIRM_MESSAGES = {
+  GO_BACK_VERIFICATION:
+    'Going back to mobile verification will require you to verify again before proceeding. Are you sure?',
+} as const;
+
 // TODO: set DoB picker to validate against age limit
 export const StepUserDetails = () => {
-  const { currentStep, prevStep, nextStep } = useOnboarding();
+  const { currentStep, nextStep, setMobileAuth, goToStep } = useOnboarding();
   const {
     register,
     trigger,
@@ -75,7 +80,15 @@ export const StepUserDetails = () => {
               colour="light"
               text="Back"
               type="button"
-              onClick={prevStep}
+              onClick={() => {
+                const shouldGoBack = confirm(
+                  CONFIRM_MESSAGES.GO_BACK_VERIFICATION
+                );
+                if (shouldGoBack) {
+                  setMobileAuth(null); // Clear auth token
+                  goToStep(1); // Go to mobile verification step
+                }
+              }}
             />
 
             <div className="col-span-3">
