@@ -50,3 +50,8 @@ export const getMobileNumber = (): string | null => {
   );
   return mobileData?.mobile ?? null;
 };
+
+// Utility to clear specific form data
+export const clearFormData = (key: string) => {
+  localStorage.removeItem(key);
+};
