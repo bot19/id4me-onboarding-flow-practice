@@ -29,7 +29,17 @@ export const StepCreatePassword = () => {
         </div>
 
         <div className="space-y-6">
-          <Feedback />
+          <Feedback
+            title="Password requirements"
+            content={[
+              'Must be at least 8 characters',
+              'Must contain at least one uppercase letter',
+              'Must contain at least one lowercase letter',
+              'Must contain at least one number',
+              'Must contain at least one special character',
+            ]}
+            type="info"
+          />
 
           <InputBasic
             autoComplete="new-password"
