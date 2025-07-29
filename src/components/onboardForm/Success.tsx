@@ -21,7 +21,7 @@ export const Success = () => {
     <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
       <div className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12">
         <Heading text="You've been onboarded!" classes="mb-4" />
-        <p className="mb-8">
+        <p className="mb-8 text-center">
           Thanks for signing up! You can now use your account to access our
           services.
         </p>
