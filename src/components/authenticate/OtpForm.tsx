@@ -11,7 +11,11 @@ import { useOnboarding } from '../../hooks/useOnboarding';
 import type { IMobileAuth } from '../../types';
 import type { AuthFormState } from './types';
 import { useFormPersistence } from '../../hooks/useFormPersistence';
-import { FORM_STORAGE_KEYS, getMobileNumber } from '../../utils/formStorage';
+import {
+  FORM_STORAGE_KEYS,
+  getMobileNumber,
+  clearFormData,
+} from '../../utils/formStorage';
 
 interface OtpFormProps {
   authFormState: AuthFormState;
@@ -72,6 +76,10 @@ export const OtpForm = (props: OtpFormProps) => {
         expires: responseJson.expires,
         bearer: responseJson.bearer,
       });
+
+      // Clear OTP form data after successful verification
+      clearFormData(FORM_STORAGE_KEYS.OTP);
+
       goToStep(2);
     } catch (error) {
       console.error('OtpForm API error', error); // TODO: remove
