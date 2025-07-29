@@ -1,6 +1,7 @@
 import { cn } from '../utils';
 import type { FieldError } from 'react-hook-form';
 import { CalendarIcon } from '@heroicons/react/16/solid';
+import { useState } from 'react';
 
 interface InputBasicProps {
   autoComplete: string;
@@ -20,7 +21,7 @@ interface InputBasicProps {
 export const InputBasic = ({
   button,
   buttonIcon,
-  // buttonOnClick,
+  buttonOnClick,
   disabled,
   error,
   label,
@@ -31,6 +32,20 @@ export const InputBasic = ({
   autoComplete,
   ...inputProps
 }: InputBasicProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Handle password visibility toggle
+  const handlePasswordToggle = () => {
+    if (type === 'password' && button) {
+      setShowPassword(!showPassword);
+    } else if (buttonOnClick) {
+      buttonOnClick();
+    }
+  };
+
+  // Determine input type for password fields
+  const inputType = type === 'password' && showPassword ? 'text' : type;
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -49,7 +64,7 @@ export const InputBasic = ({
         <input
           id={name}
           name={name}
-          type={type}
+          type={inputType}
           autoComplete={autoComplete}
           placeholder={placeholder}
           disabled={disabled}
@@ -72,12 +87,13 @@ export const InputBasic = ({
         {button && (
           <button
             type="button"
+            onClick={handlePasswordToggle}
             className={cn(
               'flex shrink-0 items-center gap-x-1.5 rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-primary cursor-pointer'
             )}
           >
             {buttonIcon}
-            {button}
+            {type === 'password' ? (showPassword ? 'Hide' : 'Show') : button}
           </button>
         )}
       </div>
