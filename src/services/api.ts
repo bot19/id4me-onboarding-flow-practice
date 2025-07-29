@@ -1,5 +1,8 @@
 export const API_URL_SEND_OTP = '/auth/sendOTP';
 export const API_URL_VALIDATE_OTP = '/auth/validateOTP';
+export const API_URL_CREATE_USER = '/auth/createUser';
+
+import { BackendSubmissionSchema } from '../validators/onboard.validator';
 
 const FIFTEEN_MINS_AS_MS = 15 * 60 * 1000; // 15 mins
 
@@ -51,6 +54,31 @@ class MockApiService {
           success: true,
           response: `{ "data": "OTP validated successfully", "expires": ${Date.now() + FIFTEEN_MINS_AS_MS}, "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }`,
         } as ApiResponse;
+      }
+
+      case API_URL_CREATE_USER: {
+        try {
+          const userData = JSON.parse(payload) as unknown;
+          const validationResult = BackendSubmissionSchema.safeParse(userData);
+
+          if (!validationResult.success) {
+            const firstError = validationResult.error.issues[0];
+            return {
+              success: false,
+              error: `Validation failed: ${firstError?.message ?? 'Invalid data'}`,
+            } as ApiResponse;
+          }
+
+          return {
+            success: true,
+            response: '{ "data": "User created successfully" }',
+          } as ApiResponse;
+        } catch {
+          return {
+            success: false,
+            error: 'Invalid JSON payload',
+          } as ApiResponse;
+        }
       }
 
       default:
