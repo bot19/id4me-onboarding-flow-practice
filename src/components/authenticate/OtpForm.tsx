@@ -72,7 +72,7 @@ export const OtpForm = (props: OtpFormProps) => {
       ) as IMobileAuth & {
         data: string;
       };
-      console.log('responseJson', responseJson);
+      console.log('OTP validation response', responseJson);
 
       if (!response.success) {
         setError('otp', {

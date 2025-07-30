@@ -36,7 +36,7 @@ export const MobileNumberForm = (props: MobileNumberFormProps) => {
   useEffect(() => {
     // Use a longer delay to ensure everything is ready
     const timer = setTimeout(() => {
-      setFocus('mobile');
+      setFocus('mobile'); // TODO: better way to focus?
     }, 100);
 
     return () => clearTimeout(timer);
