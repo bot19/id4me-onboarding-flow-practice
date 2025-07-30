@@ -16,7 +16,7 @@ Initial planning/visualisation in [tldraw](https://www.tldraw.com/f/qEb5ev4E7duS
 | v1.1    | focus on 1st input of each page on init    | 29-07-2025 |
 | v1.2    | fix react sync issues, use reducer pattern | 29-07-2025 |
 | v1.3    | subtle step transition animations          | 29-07-2025 |
-| v1.4    | tests! (some unit + e2e tests)             | 30-07-2025 |
+| v1.4    | integration tests                          | 30-07-2025 |
 
 ## Technical Stack & Architecture
 
