@@ -16,7 +16,7 @@ Initial planning/visualisation in [tldraw](https://www.tldraw.com/f/qEb5ev4E7duS
 | v1.1    | focus on 1st input of each page on init    | 29-07-2025 |
 | v1.2    | fix react sync issues, use reducer pattern | 29-07-2025 |
 | v1.3    | subtle step transition animations          | 29-07-2025 |
-| v1.4    | tests! (some unit + e2e tests)             | 29-07-2025 |
+| v1.4    | tests! (some unit + e2e tests)             | 30-07-2025 |
 
 ## Technical Stack & Architecture
 
@@ -83,6 +83,7 @@ src/
 - Loading states during "API calls"
 - Responsive design for mobile and desktop
 - Subtle step transition animation for desktop (not necessary for mobile)
+- Native input:date, has date picker for Chrome, FF, safari, mobile devices; with keyboard support for Chrome, FF
 
 #### 5. Accessibility Features
 
@@ -93,16 +94,32 @@ src/
 
 ### Technical Decisions & Rationale
 
-#### 1. React Hook Form + Zod
+#### 1. SPA Architecture (Vite) vs Next.js
+
+- **Why SPA/CSR**: No specific routing requirements or need to link to specific steps
+- **Benefits**:
+  - Faster transitions without page loads
+  - Lighter weight and more performant
+  - Easier state persistence across steps
+  - Common pattern for onboarding/wizard flows
+- **Alternative Considered**: Next.js would be overkill and add unnecessary complexity
+
+#### 2. React Hook Form + Zod
 
 - **Why**: Performance-focused form library with minimal re-renders
 - **Benefits**: Built-in validation, error handling, and form state management
 - **Zod Integration**: Type-safe validation schemas that work seamlessly with TypeScript
 
-#### 2. Context API for State Management
+#### 3. Context API + useReducer for State Management
 
-- **Why**: Lightweight solution for form state that needs to be shared across components
-- **Benefits**: No external dependencies, React-native state management
+- **Why**: Chose over Zustand for explicit control and reduced magic
+- **Benefits**:
+  - More experience with this setup
+  - Explicit and explainable state changes
+  - Easier to test and debug
+  - No external dependencies
+  - Full control over serialization/hydration
+- **Trade-offs**: Need to manage re-renders and more boilerplate code
 - **Implementation**: Separate contexts for form data and onboarding flow state
 
 #### 3. Custom Hooks for Business Logic
@@ -114,13 +131,28 @@ src/
 #### 4. Tailwind CSS for Styling
 
 - **Why**: Utility-first approach for rapid development
-- **Benefits**: Consistent design system, responsive utilities, small bundle size
+- **Benefits**:
+  - Consistent design system with predefined steps (colors, sizing, spacing)
+  - Responsive utilities and modifiers
+  - Only ships CSS that's actually used
+  - High-quality off-the-shelf accessible components
+  - Excellent for rapid prototyping with design consistency
+- **Trade-offs**:
+  - Can bloat JSX (mitigated with Tailwind fold)
+  - Additional abstraction layer
+  - Team learning curve consideration
 - **Custom Colors**: Limited palette (primary, secondary, accent, bg-grey, bg-light)
 
 #### 5. TypeScript Throughout
 
 - **Why**: Type safety and better developer experience
 - **Benefits**: Catch errors at compile time, better IDE support, self-documenting code
+
+#### 6. Form Persistence Strategy
+
+- **Why localStorage**: Protects against accidental tab/browser shutdown
+- **Alternative Considered**: sessionStorage (tab-scoped) and cookies (not appropriate for form data)
+- **Benefits**: Data persists across browser sessions and page refreshes
 
 ## Code Quality & Best Practices
 
@@ -186,8 +218,16 @@ npm run test
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+- `npm run lint:fix` - Run ESLint with auto-fix
 - `npm run format` - Format code with Prettier
-- `npm run test` - Run test suite
+- `npm run format:check` - Check code formatting
+- `npm run test` - Run test suite (when implemented)
+
+### Deployment
+
+- **Target Platform**: Netlify (sufficient for simple SPAs)
+- **Benefits**: Painless deployment with set-and-forget approach
+- **Alternative Considered**: Cloudflare Pages (if edge CDN closer to Melbourne/AUS needed)
 
 ## Testing & Quality Assurance
 
@@ -197,6 +237,16 @@ npm run test
 - **Prettier**: Consistent code formatting
 - **Husky + Lint-staged**: Pre-commit hooks for quality control
 - **TypeScript**: Compile-time error checking
+- **eslint-plugin-jsx-a11y**: Accessibility linting in code editor
+
+### Accessibility Testing
+
+- **Code Editor**: ESLint accessibility rules via `eslint-plugin-jsx-a11y`
+- **Browser Testing**: Chrome DevTools AXE and Lighthouse accessibility audits
+- **Requirements**:
+  - Form navigable via keyboard only
+  - Focused elements visually distinct
+  - Proper ARIA labels throughout
 
 ### Browsers tested
 
@@ -205,6 +255,7 @@ npm run test
 | Chrome       | Version 138.0.7204.169                        | built app, full flow test |
 | Arc (Chrome) | Ver. 1.104.0 (65533), Chromium 138.0.7204.158 | full flow test            |
 | Safari       | Version 18.4 (20621.1.15.11.10)               | full flow test            |
+| Firefox      | 141.0 (aarch64)                               | full flow test            |
 
 ### API response mocking
 
@@ -226,7 +277,9 @@ npm run test
 1. **No Real Backend**: This is a frontend-only implementation
 2. **No Real OTP**: OTP is simulated for demonstration
 3. **No Data Persistence**: Form data is not saved to a real database
-4. **No/Limited Unit Tests**: Focus was on functionality over test coverage, my have time to include some
+4. **Limited Testing**: Focus was on functionality over test coverage. Manual testing performed, see "Browsers tested"
+   - **Planned**: Playwright for e2e testing. Maybe Vitest + React Testing Library for unit/integration tests overlap with e2e testing and validation is solid by using zod (battle tested).
+   - **Benefits**: App reliability and earlier issue detection for developers
 
 ## Potential Improvements
 
