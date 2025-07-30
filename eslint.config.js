@@ -12,6 +12,7 @@ export default tseslint.config([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
+    ignores: ['tests/**/*', 'playwright.config.ts'],
     ...jsxA11y.flatConfigs.recommended,
     extends: [
       js.configs.recommended,
@@ -34,6 +35,21 @@ export default tseslint.config([
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
+    files: ['tests/**/*', 'playwright.config.ts'],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      prettier,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node,
       },
     },
   },

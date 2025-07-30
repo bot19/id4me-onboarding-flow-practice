@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "test": "npx playwright test",
-    "test:codegen": "npx playwright codegen"
+    "test:codegen": "npx playwright codegen",
+    "test:report": "npx playwright show-report"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint"
