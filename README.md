@@ -228,6 +228,7 @@ npm run test
 - **Target Platform**: Netlify (sufficient for simple SPAs)
 - **Benefits**: Painless deployment with set-and-forget approach
 - **Alternative Considered**: Cloudflare Pages (if edge CDN closer to Melbourne/AUS needed)
+- **Setup**: Github CI/CD will run tests, on passing deploy to Netlify
 
 ## Testing & Quality Assurance
 
@@ -247,6 +248,12 @@ npm run test
   - Form navigable via keyboard only
   - Focused elements visually distinct
   - Proper ARIA labels throughout
+
+### Tests (e2e, integration and unit testing)
+
+- **Testing**: Integration tests with Playwright. Testing happy path, error path and persistence
+- **Planned**: Maybe Vitest + React Testing Library for a few unit/integration tests, as e2e testing covers the onboarding flow and validation is solid by using zod (battle tested).
+- **Benefits**: App reliability and earlier issue detection for developers
 
 ### Browsers tested
 
@@ -277,9 +284,6 @@ npm run test
 1. **No Real Backend**: This is a frontend-only implementation
 2. **No Real OTP**: OTP is simulated for demonstration
 3. **No Data Persistence**: Form data is not saved to a real database
-4. **Limited Testing**: Focus was on functionality over test coverage. Manual testing performed, see "Browsers tested"
-   - **Planned**: Playwright for e2e testing. Maybe Vitest + React Testing Library for unit/integration tests overlap with e2e testing and validation is solid by using zod (battle tested).
-   - **Benefits**: App reliability and earlier issue detection for developers
 
 ## Potential Improvements
 
