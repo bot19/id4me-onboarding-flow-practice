@@ -35,6 +35,7 @@
 body {
   margin: 0;
   background-color: var(--color-gray-light);
+  overflow-x: hidden;
 }
 
 /* Hide number input spinners */
