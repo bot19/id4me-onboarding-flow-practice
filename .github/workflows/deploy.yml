@@ -46,6 +46,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VITE_GITHUB_SHA: $GITHUB_SHA
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
