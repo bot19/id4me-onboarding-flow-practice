@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('happy path, complete onboarding flow', async ({ page }) => {
-  await page.goto('http://localhost:5174/');
+  await page.goto('http://localhost:5179/');
   await page.getByRole('spinbutton', { name: 'Mobile number' }).click();
   await page
     .getByRole('spinbutton', { name: 'Mobile number' })
@@ -53,7 +53,7 @@ test('happy path, complete onboarding flow', async ({ page }) => {
 test('error path, mock responses, validation errors, correct to complete onboarding flow', async ({
   page,
 }) => {
-  await page.goto('http://localhost:5174/');
+  await page.goto('http://localhost:5179/');
   await page.getByRole('spinbutton', { name: 'Mobile number' }).click();
   await page
     .getByRole('spinbutton', { name: 'Mobile number' })
@@ -149,7 +149,7 @@ test('error path, mock responses, validation errors, correct to complete onboard
 });
 
 test('persist form data and form progress (step 2)', async ({ page }) => {
-  await page.goto('http://localhost:5174/');
+  await page.goto('http://localhost:5179/');
   await page.getByRole('spinbutton', { name: 'Mobile number' }).click();
   await page
     .getByRole('spinbutton', { name: 'Mobile number' })
@@ -163,7 +163,7 @@ test('persist form data and form progress (step 2)', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Email' }).fill('test@test.com');
   await page.getByRole('textbox', { name: 'Date of birth' }).fill('1999-10-10');
 
-  await page.goto('http://localhost:5174/');
+  await page.goto('http://localhost:5179/');
   // expect full name to have "test"
   await expect(page.getByRole('textbox', { name: 'Full name' })).toHaveValue(
     'test'
