@@ -15,7 +15,7 @@ export const Success = () => {
   };
 
   return (
-    <div className="mt-10 mb-16 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
+    <div className="mt-10 min-w-[320px] xs:mx-auto xs:w-full xs:max-w-[480px]">
       <AnimatedContent
         stepKey="step-4"
         className="bg-white px-6 py-12 shadow-sm xs:rounded-lg xs:px-12"

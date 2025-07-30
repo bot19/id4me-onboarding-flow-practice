@@ -1,5 +1,6 @@
 export { Button } from './Button';
 export { Feedback } from './Feedback';
+export { Footer } from './Footer';
 export { Heading } from './Heading';
 export { InputBasic } from './InputBasic';
 export { InputSelect } from './InputSelect';

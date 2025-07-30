@@ -1,5 +1,5 @@
 import { OnboardForm } from '../components/onboardForm';
-import { Logo } from '../ui';
+import { Footer, Logo } from '../ui';
 import { StepOneAuth } from '../components/authenticate';
 import { OnboardingProvider } from '../contexts/OnboardingProvider';
 import { useOnboarding } from '../hooks/useOnboarding';
@@ -14,6 +14,7 @@ const OnboardingContent = () => {
       <Logo />
       {currentStep === 1 && <StepOneAuth />}
       {currentStep > 1 && <OnboardForm />}
+      <Footer />
     </main>
   );
 };
