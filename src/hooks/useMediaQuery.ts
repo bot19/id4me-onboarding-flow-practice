@@ -17,7 +17,8 @@ export const useMediaQuery = (query: string): boolean => {
 };
 
 // Common breakpoint queries
-export const useIsMobile = () => useMediaQuery('(max-width: 512px)');
+// animation safe, using 600px vs 512px; only used for animations
+export const useIsMobile = () => useMediaQuery('(max-width: 600px)');
 export const useIsTablet = () =>
-  useMediaQuery('(min-width: 513px) and (max-width: 1024px)');
+  useMediaQuery('(min-width: 601px) and (max-width: 1024px)');
 export const useIsDesktop = () => useMediaQuery('(min-width: 1025px)');
