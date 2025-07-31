@@ -18,7 +18,7 @@ import {
   clearAllFormData,
   getMobileNumber,
 } from '../../utils/formStorage';
-import { validateMobileAuth } from '../../utils/onboardingUtils';
+import { hasExpired } from '../../utils/onboardingUtils';
 import { TOTAL_ONBOARDING_STEPS } from '../../constants';
 
 export const OnboardForm = () => {
@@ -48,7 +48,7 @@ export const OnboardForm = () => {
     }
 
     // Check auth token validity
-    if (!validateMobileAuth(mobileAuth, dispatch)) {
+    if (hasExpired(mobileAuth)) {
       const shouldRestart = confirm(CONFIRM_MESSAGES.EXPIRED_SESSION);
       if (shouldRestart) {
         dispatch({ type: 'GO_TO_STEP', payload: 1 });
