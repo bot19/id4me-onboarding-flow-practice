@@ -8,13 +8,13 @@ import {
 import { useOnboarding } from '../../hooks/useOnboarding';
 import { useOnboardForm } from '../../hooks/useOnboardForm';
 import { useEffect } from 'react';
+import { DATE_OF_BIRTH_MIN, DATE_OF_BIRTH_MAX } from '../../constants';
 
 const CONFIRM_MESSAGES = {
   GO_BACK_VERIFICATION:
     'Going back to mobile verification will require you to verify again before proceeding. Are you sure?',
 } as const;
 
-// TODO: set DoB picker to validate against age limit
 export const StepUserDetails = () => {
   const { state, dispatch } = useOnboarding();
   const { currentStep } = state;
@@ -65,8 +65,9 @@ export const StepUserDetails = () => {
           autoComplete="bday"
           label="Date of birth"
           requiredLabel
-          placeholder=""
           type="date"
+          min={DATE_OF_BIRTH_MIN}
+          max={DATE_OF_BIRTH_MAX}
           error={errors.dateOfBirth}
           {...register('dateOfBirth')}
         />

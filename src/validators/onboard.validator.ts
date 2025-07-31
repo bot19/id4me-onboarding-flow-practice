@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DATE_OF_BIRTH_MIN, DATE_OF_BIRTH_MAX } from '../constants';
 
 // mobile verification;
 // TODO: bonus, strict AU mobile validation, eg: +614...
@@ -24,7 +25,18 @@ export const UserDetailsSchema = z.object({
   email: z.email({ message: 'Please enter a valid email address' }),
   dateOfBirth: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Please select a valid date'),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Please select a valid date')
+    .refine(
+      date => {
+        const selectedDate = new Date(date);
+        const minDate = new Date(DATE_OF_BIRTH_MIN);
+        const maxDate = new Date(DATE_OF_BIRTH_MAX);
+        return selectedDate >= minDate && selectedDate <= maxDate;
+      },
+      {
+        message: `Date of birth must be between ${DATE_OF_BIRTH_MIN.split('-')[0]} and ${DATE_OF_BIRTH_MAX.split('-')[0]}`,
+      }
+    ),
   gender: z.string().optional(),
 });
 export type UserDetailsType = z.infer<typeof UserDetailsSchema>;
