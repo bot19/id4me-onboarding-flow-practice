@@ -19,6 +19,7 @@ import {
   getMobileNumber,
 } from '../../utils/formStorage';
 import { validateMobileAuth } from '../../utils/onboardingUtils';
+import { TOTAL_ONBOARDING_STEPS } from '../../constants';
 
 export const OnboardForm = () => {
   const { state, dispatch } = useOnboarding();
@@ -107,7 +108,7 @@ export const OnboardForm = () => {
         {currentStep === 2 && <StepUserDetails />}
         {currentStep === 3 && <StepCreatePassword />}
       </form>
-      {currentStep === 4 && <Success />}
+      {currentStep === TOTAL_ONBOARDING_STEPS && <Success />}
     </FormProvider>
   );
 };

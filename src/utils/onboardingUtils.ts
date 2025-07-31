@@ -1,5 +1,6 @@
 import type { IMobileAuth } from '../types';
 import type { OnboardingAction } from '../contexts/onboardingReducer';
+import { TOTAL_ONBOARDING_STEPS } from '../constants';
 
 export const hasExpired = (mobileAuth: IMobileAuth | null): boolean => {
   if (!mobileAuth) return true;
@@ -17,4 +18,4 @@ export const validateMobileAuth = (
   return true;
 };
 
-export const totalSteps = 4; // Configuration constant
+export const totalSteps = TOTAL_ONBOARDING_STEPS;

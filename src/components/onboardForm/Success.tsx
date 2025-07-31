@@ -1,5 +1,6 @@
 import { Card, Button } from '../../ui';
 import { useOnboarding } from '../../hooks/useOnboarding';
+import { TOTAL_ONBOARDING_STEPS } from '../../constants';
 
 export const Success = () => {
   const { dispatch } = useOnboarding();
@@ -15,7 +16,10 @@ export const Success = () => {
   };
 
   return (
-    <Card stepKey="step-4" title="You've been onboarded!">
+    <Card
+      stepKey={`step-${TOTAL_ONBOARDING_STEPS}`}
+      title="You've been onboarded!"
+    >
       <p className="mb-8 text-center">
         Thanks for signing up! You can now use your account to access our
         services.

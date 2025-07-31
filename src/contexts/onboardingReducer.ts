@@ -1,4 +1,5 @@
 import type { IMobileAuth } from '../types';
+import { TOTAL_ONBOARDING_STEPS } from '../constants';
 
 export interface OnboardingState {
   currentStep: number;
@@ -20,7 +21,7 @@ export const onboardingReducer = (
   state: OnboardingState,
   action: OnboardingAction
 ): OnboardingState => {
-  const totalSteps = 4; // Configuration constant
+  const totalSteps = TOTAL_ONBOARDING_STEPS;
 
   switch (action.type) {
     case 'NEXT_STEP':
