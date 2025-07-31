@@ -19,7 +19,11 @@ import {
   getMobileNumber,
 } from '../../utils/formStorage';
 import { hasExpired } from '../../utils/onboardingUtils';
-import { TOTAL_ONBOARDING_STEPS } from '../../constants';
+import {
+  TOTAL_ONBOARDING_STEPS,
+  ERROR_MESSAGES,
+  CONFIRM_MESSAGES,
+} from '../../constants';
 
 export const OnboardForm = () => {
   const { state, dispatch } = useOnboarding();
@@ -112,17 +116,3 @@ export const OnboardForm = () => {
     </FormProvider>
   );
 };
-
-// Error messages, TODO: can be abstracted to global location?
-const ERROR_MESSAGES = {
-  MOBILE_NOT_FOUND:
-    'Mobile number not found. Please restart the verification process.',
-  VALIDATION_FAILED: (message: string) => `Validation failed: ${message}`,
-  ACCOUNT_CREATION_FAILED: 'An error occurred while creating your account',
-  UNEXPECTED_ERROR: 'An unexpected error occurred. Please try again.',
-} as const;
-
-const CONFIRM_MESSAGES = {
-  EXPIRED_SESSION:
-    'Your session has expired. Would you like to restart the verification process?',
-} as const;
