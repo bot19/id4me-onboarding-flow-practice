@@ -66,6 +66,7 @@ export const OnboardForm = () => {
         ...data,
         mobile: mobileNumber,
       };
+      // TODO: don't need pw confirm
       console.log('submissionData', submissionData);
 
       // Validate data against backend schema
