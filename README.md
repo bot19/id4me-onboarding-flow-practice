@@ -17,6 +17,7 @@ Initial planning/visualisation in [tldraw](https://www.tldraw.com/f/qEb5ev4E7duS
 | v1.2    | fix react sync issues, use reducer pattern | 29-07-2025 |
 | v1.3    | subtle step transition animations          | 29-07-2025 |
 | v1.4    | integration tests                          | 30-07-2025 |
+| v1.5    | code + feature fixes + improvements        | 01-08-2025 |
 
 ## Technical Stack & Architecture
 
@@ -293,9 +294,8 @@ npm run test
 4. **More thorough testing**: Ensure critical onboarding flow is error/issue free
 5. **Improve accessibility**: Accessibility can more thoroughly tested, improvements can be made
 6. **WebOTP**: [New/experimental](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API), but could add for better user experience with fallback
-7. **More Animations**: Increase visuals and interaction experience, can have positive user impact
-8. **Age limiting**: Perhaps we can restrict age limits, eg: from 18-80
-9. **Custom fonts**: Enhance visual quality and perhaps readability
+7. **Firefox input:date**: Has its own calendar icon, visibilty under our own added calendar icon (FF CSS fix)
+8. **Custom fonts**: Enhance visual quality and perhaps readability
 
 ## Conclusion/final thoughts
 
