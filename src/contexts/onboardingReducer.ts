@@ -21,13 +21,11 @@ export const onboardingReducer = (
   state: OnboardingState,
   action: OnboardingAction
 ): OnboardingState => {
-  const totalSteps = TOTAL_ONBOARDING_STEPS;
-
   switch (action.type) {
     case 'NEXT_STEP':
       return {
         ...state,
-        currentStep: Math.min(state.currentStep + 1, totalSteps),
+        currentStep: Math.min(state.currentStep + 1, TOTAL_ONBOARDING_STEPS),
       };
 
     case 'PREV_STEP':
@@ -39,7 +37,10 @@ export const onboardingReducer = (
     case 'GO_TO_STEP':
       return {
         ...state,
-        currentStep: Math.max(1, Math.min(action.payload, totalSteps)),
+        currentStep: Math.max(
+          1,
+          Math.min(action.payload, TOTAL_ONBOARDING_STEPS)
+        ),
       };
 
     case 'SET_MOBILE_AUTH':
